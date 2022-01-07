@@ -6,14 +6,22 @@ let advancedElementsForScrollBlocking = () => document.getElementsByClassName('j
 const bodyPaddingClass = 'js-body-padding-instead-of-scrollbar';
 const paddingClass = 'js-padding-instead-of-scrollbar';
 
-export function blockScroll() {
+let firstInitiator = undefined;
+
+export function blockScroll(initiator = undefined) {
+  if (initiator && firstInitiator && firstInitiator !== initiator) return
+  firstInitiator = initiator
+
   if (checkScrollbar()) {
     blockScrollBar();
   }
   document.documentElement.classList.add('block-scroll');
   document.body.classList.add('block-scroll');
 }
-export function unblockScroll() {
+export function unblockScroll(initiator = undefined) {
+  if (initiator && firstInitiator && firstInitiator !== initiator) return
+  firstInitiator = ''
+
   document.documentElement.classList.remove('block-scroll');
   document.body.classList.remove('block-scroll');
   unblockScrollBar();

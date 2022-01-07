@@ -180,8 +180,10 @@
 		letter-spacing: .008em;
 
 		&__icon {
+			width: .5625rem;
+			height: .375rem;
 			position: relative;
-			bottom: .09375rem;
+			bottom: .0625rem;
 			margin-left: .25rem;
 		}
 	}

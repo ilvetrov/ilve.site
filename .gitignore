@@ -91,3 +91,8 @@ sw.*
 
 # Single Database
 /s-db.json
+
+# Content data
+static/*/content
+source/*/content
+/images-data.json

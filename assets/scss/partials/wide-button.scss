@@ -1,0 +1,19 @@
+.wide-button {
+  display: inline-block;
+  width: 100%;
+  max-width: 28rem;
+  background-color: rgba($color: #253746, $alpha: .6);
+  color: #80B3FF;
+  line-height: 1.15;
+  text-align: center;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  border-radius: .25rem;
+  transition: background-color .15s;
+
+  &:hover, &:focus {
+    background-color: rgba($color: #253746, $alpha: 1);
+  }
+}

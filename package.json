@@ -5,6 +5,7 @@
 	"scripts": {
 		"dev": "nuxt",
 		"build": "nuxt build",
+		"build-content": "node build-content.js",
 		"start": "nuxt start",
 		"generate": "nuxt generate"
 	},
@@ -21,5 +22,6 @@
 		"nuxt": "^2.15.7",
 		"sass": "^1.45.1",
 		"sass-loader": "10.1.1"
-	}
+	},
+	"type": "module"
 }

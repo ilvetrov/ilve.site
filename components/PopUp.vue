@@ -1,5 +1,9 @@
 <template>
-  <div class="pop-up" :data-pop-up="name" @click="closeAnywhere && closePopUp()">
+  <div
+    class="pop-up"
+    :data-pop-up="name ? name : 'as-page'"
+    @click="closeAnywhere && closePopUp()"
+  >
     <div class="pop-up__overlay" @click="closePopUp()"></div>
     <div :class="'pop-up__wrap js-for-replace-scrollbar ' + wrapClass">
       <slot v-if="plain"></slot>
@@ -44,6 +48,7 @@
 </template>
 
 <script>
+import { unblockScroll } from '~/plugins/block-scroll'
 import PureHandlers from '~/plugins/pure-handlers'
   export default {
     props: {
@@ -78,14 +83,6 @@ import PureHandlers from '~/plugins/pure-handlers'
     },
     mounted() {
       if (this.isBrowser()) {
-        if (!this.$props.isPage) {
-          this.pureHandlers.addEventListener(this.$el, 'transitionend', () => {
-            if (this.$el.classList.contains('hidden')) {
-              this.$el.classList.add('disabled')
-            }
-          })
-        }
-
         const content = this.$el.querySelector('[data-pop-up-content]')
         if (content && content.calcMaxHeight) {
           this.pureHandlers.addEventListener(window, 'resize', content.calcMaxHeight)
@@ -100,7 +97,16 @@ import PureHandlers from '~/plugins/pure-handlers'
         if (this.$props.isPage) {
           this.goParent()
         } else {
+          if (this.$el.classList.contains('process')) return
+          this.$el.classList.add('process')
           this.$el.classList.add('hidden')
+          unblockScroll(this.$el.getAttribute('data-pop-up'))
+
+          setTimeout(() => {
+            if (!this.$el.classList.contains('process')) return
+            this.$el.classList.remove('process')
+            this.$el.classList.add('disabled')
+          }, 210);
         }
       },
       isBrowser() {

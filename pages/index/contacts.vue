@@ -61,28 +61,15 @@
       </ul>
       <!-- /.contacts -->
     </PopUp>
-    <PopUp
-      v-for="contact in db.getContacts().filter(contact => !!contact.qr)" :key="'contact-qr-' + contact.qr"
-      class="hidden disabled"
-      wrapClass="pop-up-qr-wrap"
-      :name="'contact-qr-' + contact.qr"
-      plain
-    >
-      <div class="pop-up-qr">
-        <div class="pop-up-qr__wrap">
-          <div class="pop-up-qr__img-wrap">
-            <div class="pop-up-qr__title">
-              {{ contact.title }}
-            </div>
-            <!-- /.pop-up-qr__title -->
-            <img :src="'/img/' + contact.qr" class="pop-up-qr__img" :alt="$t('qr_code')">
-          </div>
-          <!-- /.pop-up-qr__img-wrap -->
-        </div>
-        <!-- /.pop-up-qr__wrap -->
-      </div>
-      <!-- /.pop-up-qr -->
-    </PopUp>
+    <QrPopUp
+      v-for="contact in db.getContacts().filter(contact => !!contact.qr)"
+      :key="'contact-qr-' + contact.qr"
+      :data="{
+        qr: contact.qr,
+        title: contact.title,
+        name: 'contact-qr-' + contact.qr
+      }"
+    />
   </section>
   <!-- /.contacts-wrap -->
 </template>
@@ -110,11 +97,11 @@ export default {
   },
   mounted() {
     if (process.browser) {
-      blockScroll()
+      blockScroll('as-page')
     }
   },
   beforeDestroy() {
-    unblockScroll()
+    unblockScroll('as-page')
   }
 }
 </script>
@@ -227,47 +214,6 @@ export default {
       line-height: 1.05;
       font-weight: 400;
       text-align: center;
-    }
-  }
-  .pop-up-qr-wrap {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-  }
-  .pop-up-qr {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    padding: .875rem;
-
-    &__title {
-      text-align: center;
-      font-weight: 400;
-      font-size: 1.5rem;
-      margin-bottom: 1.5rem;
-    }
-    &__wrap {
-      position: relative;
-      width: 100%;
-      height: 100%;
-    }
-    &__img-wrap {
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      transform: translateX(-50%) translateY(-50%);
-      width: 100%;
-      height: auto;
-      max-height: 100%;
-
-      @media (min-width: 426px) {
-        max-width: 18rem;
-      }
-    }
-    &__img {
-      width: 100%;
-      height: 100%;
-      border-radius: .25rem;
     }
   }
 </style>

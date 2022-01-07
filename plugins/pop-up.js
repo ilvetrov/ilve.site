@@ -2,10 +2,10 @@ import { blockScroll } from "./block-scroll";
 
 export function showPopUp(popUp) {
   popUp = detectPopUpInVariable(popUp);
-  if (!popUp) return false;
+  if (!popUp || popUp.classList.contains('process')) return false;
 
   popUp.classList.remove('disabled');
-  blockScroll();
+  blockScroll(popUp.getAttribute('data-pop-up'));
   setTimeout(() => {
     popUp.classList.remove('hidden');
   }, 100);

@@ -34,7 +34,13 @@
 		}
 		&__descr {
 			line-height: 1;
-			
+		}
+
+		@media (min-width: 1024px) {
+			margin-top: 5.4vw;
+		}
+		@media (min-width: 1489px) {
+			margin-top: 4rem;
 		}
 	}
 </style>

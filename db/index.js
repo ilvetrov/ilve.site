@@ -69,4 +69,7 @@ export class DB {
   getContacts() {
     return this.storage.contacts
   }
+  getPortfolio() {
+    return this.storage.portfolio
+  }
 }
