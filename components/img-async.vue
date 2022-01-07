@@ -12,7 +12,7 @@
     <slot></slot>
   </div>
   <img
-    v-else-if="imageDataExists()"
+    v-else-if="!isBrowser() && imageDataExists()"
     :src="createBlank()"
     :data-async-img="insertImageSettings()"
     loading="lazy"
