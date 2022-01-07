@@ -1,0 +1,102 @@
+html, body, .site {
+  overflow-x: hidden;
+}
+html {
+  font-size: 16px;
+
+  @media (max-width: 359px) {
+    font-size: 4.44vw;
+  }
+  @media (min-width: 565px) {
+    font-size: 2.83vw;
+  }
+  @media (min-width: 706px) {
+    font-size: 20px;
+  }
+  @media (min-width: 1950px) {
+    font-size: 1.026vw;
+  }
+}
+body {
+  font-family: 'Manrope', sans-serif;
+  font-weight: 300;
+  line-height: 1.445;
+  color: $text-color;
+  background-color: $first-background-color;
+  box-sizing: border-box;
+}
+* {
+  box-sizing: inherit;
+}
+strong, b {
+  font-weight: 700;
+}
+.disabled {
+  display: none !important;
+}
+.not-link-style {
+  text-decoration: none;
+  outline: none !important;
+  color: inherit;
+}
+.not-button-style {
+  border: none;
+  background: none;
+}
+.tech-checkbox {
+  display: none;
+  position: absolute;
+  left: -999999px;
+  opacity: 0;
+  user-select: none;
+  pointer-events: none;
+  visibility: hidden;
+  max-height: 0px;
+}
+::selection {
+  background: #486086;
+  color: #fff;
+}
+.hide-number-arrows {
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  
+  &[type=number] {
+    -moz-appearance: textfield;
+  }
+}
+::-webkit-scrollbar {
+  width: .5rem;
+}
+::-webkit-scrollbar-track {
+  background-color: #1A1C21;
+}
+::-webkit-scrollbar-thumb {
+  background-color: #253746;
+  border-radius: .375rem;
+
+  &:hover {
+    background-color: #405260;
+  }
+}
+@media (min-width: 426px) {
+  .custom-scrollbar-second {
+    &::-webkit-scrollbar {
+      width: .5rem;
+    }
+    &::-webkit-scrollbar-track {
+      background-color: #253746;
+    }
+    &::-webkit-scrollbar-thumb {
+      background-color: #405260;
+      border-radius: .375rem;
+  
+      &:hover {
+        background-color: #476277;
+      }
+    }
+  }
+}

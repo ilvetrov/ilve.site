@@ -1,0 +1,24 @@
+@use "sass:math";
+
+@mixin clickExtenderInit($offsets) {
+  .click-extender {
+    display: inline-block;
+    padding: $offsets;
+    margin: -$offsets;
+    box-sizing: content-box;
+
+    &_small {
+      padding: math.div($offsets, 2);
+      margin: math.div(-$offsets, 2);
+    }
+  }
+  .inline-click-extender {
+    @extend .click-extender;
+    padding-top: math.div($offsets, 2);
+    padding-bottom: math.div($offsets, 2);
+    margin-top: math.div(-$offsets, 2);
+    margin-bottom: math.div(-$offsets, 2);
+  }
+}
+
+@include clickExtenderInit(.5rem);

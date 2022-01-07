@@ -1,0 +1,22 @@
+{
+	"hello": "Привет мир!",
+	"ilia_vetrov": "Илья Ветров",
+	"switch_to": "Переключить на",
+	"logo_lang": "ru",
+	"web_development": "Разработка сайтов",
+	"portfolio_below": "Портфолио ниже",
+	"video_about_the_site": "А это видео о сайте. Посмотрите",
+	"unmute": "Включить звук",
+	"portfolio": "Портфолио",
+	"contacts": "Контакты",
+	"open": "Открыть",
+	"close": "Закрыть",
+	"link_click_on": "Ссылка. Нажмите на меня",
+	"or_scan": "Или отсканируйте:",
+	"qr_code": "QR-код",
+	"tap_to_enlarge": "Нажмите,<br>увеличится",
+	"open_on_phone": "Открыть на телефоне",
+	"open_on_phone_h": "Открыть<br>на телефоне",
+	"admin_panel_guide": "Инструкция для админ панели",
+	"open_on_computer": "Открыть на компьютере"
+}

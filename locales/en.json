@@ -1,0 +1,22 @@
+{
+	"hello": "Hello World",
+	"ilia_vetrov": "Ilia Vetrov",
+	"switch_to": "Switch to",
+	"logo_lang": "en",
+	"web_development": "Web development",
+	"portfolio_below": "Portfolio is below",
+	"video_about_the_site": "And look the video about the site",
+	"unmute": "Enable audio",
+	"portfolio": "Portfolio",
+	"contacts": "Contacts",
+	"open": "Open",
+	"close": "Close",
+	"link_click_on": "Link. Tap on me",
+	"or_scan": "Or scan QR-code",
+	"qr_code": "QR-code",
+	"tap_to_enlarge": "Tap<br>to enlarge",
+	"open_on_phone": "Open on phone",
+	"open_on_phone_h": "Open<br>on phone",
+	"admin_panel_guide": "Admin panel guide",
+	"open_on_computer": "Open on computer"
+}

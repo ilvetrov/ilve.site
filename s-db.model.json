@@ -1,0 +1,28 @@
+{
+  "contacts": [
+    {
+      "icon": "",
+      "title": {
+        "_type": "locales",
+        "locales": {
+          "ru": "",
+          "en": ""
+        }
+      },
+      "link": "",
+      "link_text": "",
+      "qr": ""
+    }
+  ],
+  "portfolio": [
+    {
+      "title": "",
+      "descr": "",
+      "img": "",
+      "link": "https://lkstr.ru",
+      "qr": "",
+      "guide": "https://docs.google.com/document/d/1Qh0kDYqd6UTxFfl8agwLcUY5ctmQmcEiNUe2U5c1uUM/edit",
+      "short_link": "/str"
+    }
+  ]
+}
