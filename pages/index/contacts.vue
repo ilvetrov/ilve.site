@@ -107,12 +107,6 @@ export default {
 </script>
 
 <style lang="scss">
-  .contacts-pop-up {
-    .pop-up__overlay {
-      background-color: unset;
-      background-image: linear-gradient(0deg, rgba(26, 28, 33, 0.9), rgba(26, 28, 33, 0));
-    }
-  }
   .contacts-content {
     max-width: 34rem;
   }
@@ -181,7 +175,7 @@ export default {
       top: 0;
       right: -.6875rem;
 
-      @media (max-width: 768px) {
+      @media (max-width: 539px) {
         display: none;
       }
     }
@@ -196,6 +190,8 @@ export default {
     position: relative;
     display: flex;
     align-items: center;
+    transform-origin: left;
+    transition: transform .15s;
 
     &__arrow-wrap {
       position: relative;
@@ -214,6 +210,10 @@ export default {
       line-height: 1.05;
       font-weight: 400;
       text-align: center;
+    }
+
+    &:hover, &:focus {
+      transform: scale(1.05);
     }
   }
 </style>

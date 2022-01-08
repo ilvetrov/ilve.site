@@ -1,31 +1,62 @@
 <template>
   <div
     class="pop-up"
-    :data-pop-up="name ? name : 'as-page'"
-    @click="closeAnywhere && closePopUp()"
+    :data-pop-up="popUpName"
+    @click.stop="popUpTopClickHandler"
+    :style="`--header-logo: 0px;`"
   >
-    <div class="pop-up__overlay" @click="closePopUp()"></div>
+    <script v-if="withLogo">
+      (function() {
+        var popUp = document.currentScript.parentElement;
+        var headerLogo = document.querySelector('[data-header-logo]');
+        function calcHeaderLogo() {
+          if (!headerLogo) {
+            popUp.style.setProperty('--header-logo', '0px');
+            return;
+          }
+          var pos = headerLogo.getBoundingClientRect()
+          var bottomPos = pos.y + pos.height;
+          var remMod = getRem() / 16;
+          var middleOffset = 14 * remMod;
+          var offset = bottomPos + middleOffset;
+          popUp.style.setProperty('--header-logo', offset + 'px');
+        }
+        function getRem() {
+          try {
+            return Number(getComputedStyle(document.documentElement).fontSize.match(/(.+?)px/)[1]);
+          } catch (error) {
+            console.error(error)
+            return 16;
+          }
+        }
+        calcHeaderLogo();
+        window.addEventListener('load', calcHeaderLogo);
+        popUp.calcHeaderLogo = calcHeaderLogo;
+      }());
+    </script>
+    <div class="pop-up__overlay" @click.stop="closePopUp()"></div>
     <div :class="'pop-up__wrap js-for-replace-scrollbar ' + wrapClass">
       <slot v-if="plain"></slot>
       <div v-else class="pop-up__content">
-        <div :class="'pop-up-content custom-scrollbar-second ' + contentClass" data-pop-up-content>
+        <div :class="'pop-up-content custom-scrollbar-second ' + contentClass" :data-pop-up-content="popUpName">
           <script>
             (function() {
               var content = document.currentScript.parentElement;
               function calcMaxHeight() {
                 var remMod = getRem() / 16;
                 var bottomOffset = 64 * remMod;
-                var headerOffset = 117 * remMod;
+                var headerLogoPos = document.querySelector('[data-header-logo]')?.getBoundingClientRect();
+                var headerOffset = (headerLogoPos ? (headerLogoPos.y + headerLogoPos.height) : 0) + (32 * remMod);
                 var maxUXHeight = Math.max(window.innerHeight * 0.6, 457);
                 var maxHeight = Math.min(Math.max(100, window.innerHeight - headerOffset - bottomOffset), maxUXHeight);
                 content.style.maxHeight = maxHeight + 'px';
               }
               function getRem() {
                 try {
-                  return Number(getComputedStyle(document.documentElement).fontSize.match(/(.+?)px/)[1])
+                  return Number(getComputedStyle(document.documentElement).fontSize.match(/(.+?)px/)[1]);
                 } catch (error) {
-                  console.error(error)
-                  return 16
+                  console.error(error);
+                  return 16;
                 }
               }
               calcMaxHeight();
@@ -38,7 +69,7 @@
       </div>
       <!-- /.pop-up__content -->
       <div class="pop-up__close-block">
-        <img class="pop-up__close click-extender" src="/img/close.svg" :alt="$t('close')" @click="closePopUp()">
+        <img class="pop-up__close click-extender" src="/img/close.svg" :alt="$t('close')" @click.stop="closePopUp()">
       </div>
       <!-- /.pop-up__close-block -->
     </div>
@@ -50,6 +81,7 @@
 <script>
 import { unblockScroll } from '~/plugins/block-scroll'
 import PureHandlers from '~/plugins/pure-handlers'
+import checkOutside from '~/plugins/outside-checker'
   export default {
     props: {
       isPage: {
@@ -57,6 +89,10 @@ import PureHandlers from '~/plugins/pure-handlers'
         default: false
       },
       plain: {
+        type: Boolean,
+        default: false
+      },
+      withLogo: {
         type: Boolean,
         default: false
       },
@@ -78,6 +114,7 @@ import PureHandlers from '~/plugins/pure-handlers'
     },
     data() {
       return {
+        popUpName: this.$props.name ?? 'as-page',
         pureHandlers: new PureHandlers()
       }
     },
@@ -87,12 +124,20 @@ import PureHandlers from '~/plugins/pure-handlers'
         if (content && content.calcMaxHeight) {
           this.pureHandlers.addEventListener(window, 'resize', content.calcMaxHeight)
         }
+        if (this.$el.calcHeaderLogo) {
+          this.pureHandlers.addEventListener(window, 'resize', this.$el.calcHeaderLogo)
+        }
       }
     },
     beforeDestroy() {
       this.pureHandlers.destroy()
     },
     methods: {
+      popUpTopClickHandler($event) {
+        if (this.$props.closeAnywhere) return this.closePopUp()
+        const content = this.$el.querySelector(`[data-pop-up-content="${this.popUpName}"]`)
+        if (content && checkOutside(content, $event.target)) return this.closePopUp()
+      },
       closePopUp() {
         if (this.$props.isPage) {
           this.goParent()
@@ -119,6 +164,7 @@ import PureHandlers from '~/plugins/pure-handlers'
         let rawRoutes = this.$router.currentRoute.path.split('/')
         rawRoutes.pop()
         const parentRouteRaw = rawRoutes.join('/')
+        console.log(parentRouteRaw)
         return !!parentRouteRaw.match(/^\//) ? parentRouteRaw : `/${parentRouteRaw}`
       },
       goParent() {
@@ -145,6 +191,7 @@ import PureHandlers from '~/plugins/pure-handlers'
       right: 0;
       bottom: 0;
       background-color: rgba(26, 28, 33, 0.9);
+      transform: translateY(var(--header-logo));
     }
     &__wrap {
       position: absolute;
@@ -174,6 +221,7 @@ import PureHandlers from '~/plugins/pure-handlers'
       transition: opacity .2s;
       height: 1rem;
       width: auto;
+      cursor: pointer;
 
       &:hover, &:focus {
         opacity: 1;

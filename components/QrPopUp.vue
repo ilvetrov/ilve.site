@@ -44,6 +44,7 @@
     width: 100%;
     height: 100%;
     padding: .875rem;
+    padding-top: 2rem;
 
     &__title {
       text-align: center;

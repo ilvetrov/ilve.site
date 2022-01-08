@@ -73,7 +73,7 @@ import imagesData from "../images-data.json";
         this.imageSettings = {
           // Default
           ...this.imageSettingsDefault,
-          // Custom
+          // From Data
           ...{
             isHigh: this.imageData.size >= process.env.MAX_SIZE_TO_HIGH_LOAD,
           },

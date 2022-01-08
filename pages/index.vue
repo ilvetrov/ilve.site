@@ -50,11 +50,11 @@
 					<!-- /.index-page__media-wrap -->
 					<div class="index-page__links">
 						<div class="index-page__link">
-							<NuxtLink :to="localePath('/portfolio')" class="index-link not-link-style">{{ $t('portfolio') }} <img src="/img/right-arrow-blue.svg" class="index-page__link-arrow" :alt="$t('open')"></NuxtLink>
+							<NuxtLink :to="localePath('/portfolio')" class="index-link not-link-style">{{ $t('portfolio') }} <img src="/img/right-arrow-blue.svg" class="index-link__arrow" :alt="$t('open')"></NuxtLink>
 						</div>
 						<!-- /.index-page__link -->
 						<div class="index-page__link">
-							<NuxtLink :to="localePath('/contacts')" class="index-link not-link-style">{{ $t('contacts') }} <img src="/img/right-arrow-blue.svg" class="index-page__link-arrow" :alt="$t('open')"></NuxtLink>
+							<NuxtLink :to="localePath('/contacts')" class="index-link not-link-style">{{ $t('contacts') }} <img src="/img/right-arrow-blue.svg" class="index-link__arrow" :alt="$t('open')"></NuxtLink>
 						</div>
 						<!-- /.index-page__link -->
 					</div>
@@ -90,9 +90,24 @@
 <style lang="scss" scoped>
 	.index-page {
 		padding-top: calc((100vh - 39.75rem) / 2);
+
+		@media (min-width: 1024px) {
+			padding-top: calc((100vh - 42.5rem) / 2);
+
+			@media (max-height: 849px) {
+				padding-top: 0;
+			}
+		}
 		
 		&__container {
 			padding-bottom: 2.375rem;
+
+			@media (min-width: 1024px) {
+				padding-bottom: 5.4vw;
+			}
+			@media (min-width: 1489px) {
+				padding-bottom: 4rem;
+			}
 		}
 		&__title {
 			margin-bottom: 1rem;
@@ -145,11 +160,6 @@
 				margin-bottom: 0;
 			}
 		}
-		&__link-arrow {
-			margin-left: .25rem;
-			position: relative;
-			bottom: .125rem;
-		}
 	}
 	.unmute-tip {
 		display: inline-block;
@@ -178,6 +188,7 @@
 		background-color: #253746;
 		border-radius: .25rem;
 		letter-spacing: .008em;
+		transition: background-color .15s;
 
 		&__icon {
 			width: .5625rem;
@@ -186,6 +197,10 @@
 			bottom: .0625rem;
 			margin-left: .25rem;
 		}
+
+		&:hover, &:focus {
+			background-color: #334656;
+		}
 	}
 	.big-title,
 	.subtitle
@@ -193,12 +208,46 @@
 		text-align: center;
 	}
 	.index-link {
+		position: relative;
 		display: inline-block;
 		color: #80B3FF;
 		font-size: 1.5rem;
 		font-weight: 700;
 		line-height: 1;
-		border-bottom: 1px #80B3FF solid;
-		padding-bottom: .4375rem;
+		padding-bottom: .5rem;
+		transition: color .15s;
+
+		&::after {
+			content: '';
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			right: 0;
+			height: 1px;
+			background-color: #80B3FF;
+			transition: background-color .15s, transform .15s;
+		}
+
+		&__arrow {
+			margin-left: .25rem;
+			position: relative;
+			bottom: .125rem;
+			transition: transform .15s;
+		}
+
+		&:hover, &:focus {
+			color: #a3c8ff;
+
+			&::after {
+				transform: translateY(.125rem);
+				background-color: #a3c8ff;
+			}
+		}
+
+		&:hover &, &:focus & {
+			&__arrow {
+				transform: translateX(.125rem);
+			}
+		}
 	}
 </style>
