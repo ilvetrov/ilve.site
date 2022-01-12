@@ -46,6 +46,10 @@ export default {
 		'@nuxtjs/i18n'
 	],
 
+	router: {
+		trailingSlash: true
+	},
+
 	i18n: {
 		locales: [
 			{
