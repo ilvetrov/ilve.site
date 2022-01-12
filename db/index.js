@@ -72,4 +72,7 @@ export class DB {
   getPortfolio() {
     return this.storage.portfolio
   }
+  getHelloVideo() {
+    return this.storage.hello_video
+  }
 }

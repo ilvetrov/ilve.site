@@ -22,7 +22,10 @@
 					</div>
 					<!-- /.index-page__subtitle -->
 					<div class="index-page__media-wrap">
-						<div class="video-tip index-page__media">
+						<div :class="{
+							'video-tip index-page__media': true,
+							'centered': db.getHelloVideo()[0].centered
+						}">
 							<img-async
 								src="/img/home-face.jpg"
 								background
@@ -30,7 +33,12 @@
 							>
 							</img-async>
 							<video autoplay muted loop class="inner-video index-page__video" data-video-tip="hello">
-								<source-on-load src="/video/hello-1.webm" type='video/webm; codecs="vp8, vorbis"'/>
+								<source-on-load
+									v-for="video in db.getHelloVideo()"
+									:key="video.src"
+									:src="'/video/' + video.src"
+									:type="video.type"
+								/>
 							</video>
 							<!-- /.inner-video -->
 						</div>
@@ -71,8 +79,14 @@
 </template>
 
 <script>
+	import { DB } from '~/db'
 	import { VideoTip } from "../plugins/video-tip"
 	export default {
+		data() {
+			return {
+				db: new DB(this.$i18n.locale, (key) => this.$i18n.t(key))
+			}
+		},
 		mounted() {
 			if (process.browser) {
 				const helloVideoTip = document.querySelector('[data-video-tip="hello"]')
@@ -122,21 +136,40 @@
 			margin-right: auto;
 			position: relative;
 			margin-bottom: 2.375rem;
+			display: flex;
+			align-items: center;
+		}
+		&__media, &__background-photo, &__video {
+			border-radius: 7.5rem;
 		}
 		&__media {
 			width: 100%;
-			height: 100%;
+			max-height: 100%;
+			min-height: 100%;
 			position: relative;
-			border-radius: 7.5rem;
 			overflow: hidden;
 			cursor: pointer;
+			will-change: max-height, transform, border-radius;
+
+			&.centered {
+				display: flex;
+				align-items: center;
+			}
+			&.active {
+				max-height: 200%;
+				border-radius: 0;
+			}
+		}
+		&__background-photo, &__video {
+			transition: all .2s ease-out;
+			will-change: border-radius, transform;
 		}
 		&__background-photo {
 			position: absolute;
-			left: 0;
-			right: 0;
 			top: 0;
-			bottom: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
 			background-size: cover;
 			background-position: center;
 			background-repeat: no-repeat;
@@ -144,6 +177,11 @@
 		}
 		&__video {
 			position: relative;
+		}
+		&__media.active & {
+			&__background-photo, &__video {
+				border-radius: .25rem;
+			}
 		}
 		&__unmute-tip {
 			position: absolute;

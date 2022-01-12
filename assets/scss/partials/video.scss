@@ -1,11 +1,10 @@
 .inner-video {
-  height: 100%;
   width: 100%;
 }
 
 .video-tip {
   transform-origin: center;
-  transition: transform .2s ease-out;
+  transition: all .2s ease-out;
 
   &:hover, &:focus {
     transform: scale(1.1);

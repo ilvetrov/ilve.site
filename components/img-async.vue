@@ -66,7 +66,7 @@ import imagesData from "../images-data.json";
         )
       },
       isBackground() {
-        return this.imageSettings.isBackground
+        return this.getImageSettings().isBackground
       },
       getImageSettings() {
         if (Object.keys(this.imageSettings).length > 0) return this.imageSettings
@@ -75,7 +75,7 @@ import imagesData from "../images-data.json";
           ...this.imageSettingsDefault,
           // From Data
           ...{
-            isHigh: this.imageData.size >= process.env.MAX_SIZE_TO_HIGH_LOAD,
+            isHigh: this.imageData?.size >= process.env.MAX_SIZE_TO_HIGH_LOAD,
           },
           // Props
           ...(this.$props.data ?? {

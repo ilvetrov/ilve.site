@@ -22,7 +22,7 @@ export class VideoTip {
     
     this.backdrop = new Backdrop()
     
-    this.pureHandlers = new PureHandlers();
+    this.pureHandlers = new PureHandlers()
 
     this.initForTurnOff()
     this.pureHandlers.addEventListener(this.videoElement, 'click', () => this.clickHandler())
