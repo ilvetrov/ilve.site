@@ -12,6 +12,7 @@
 		"bg-stop": "pm2 stop \"ilve.site\"",
 		"bg-delete": "pm2 delete \"ilve.site\"",
 		"bg-restart": "pm2 restart \"ilve.site\"",
+		"bg-full-restart": "npm run bg-delete; npm run build-content; npm run build; npm run bg-start",
 		"bg-logs": "pm2 logs \"ilve.site\"",
 		"bg-monit": "pm2 monit \"ilve.site\""
 	},
