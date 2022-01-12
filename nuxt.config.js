@@ -67,7 +67,8 @@ export default {
 		],
 		strategy: 'prefix_except_default',
 		langDir: 'locales/',
-		defaultLocale: 'ru'
+		defaultLocale: 'ru',
+		detectBrowserLanguage: false
 	},
 
 	serverMiddleware: [
