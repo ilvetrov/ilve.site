@@ -18,9 +18,14 @@
     loading="lazy"
   >
   <img
-    v-else
+    v-else-if="imageDataExists()"
     :src="createBlank()"
     :data-browser-src="src"
+    loading="lazy"
+  >
+  <img
+    v-else
+    :src="src"
     loading="lazy"
   >
 </template>
