@@ -19,7 +19,8 @@
   >
   <img
     v-else
-    :src="src"
+    :src="createBlank()"
+    :data-browser-src="src"
     loading="lazy"
   >
 </template>
@@ -53,6 +54,13 @@ import imagesData from "../images-data.json";
         imageSettings: {}
       }
     },
+    mounted() {
+      if (this.$el.hasAttribute('data-browser-src')) {
+        setTimeout(() => {
+          this.$el.setAttribute('src', this.$el.getAttribute('data-browser-src'))
+        }, 0);
+      }
+    },
     methods: {
       isBrowser() {
         return process.browser
@@ -62,7 +70,7 @@ import imagesData from "../images-data.json";
       },
       createBlank() {
         return 'data:image/svg+xml,' + encodeURIComponent(
-          `<svg xmlns="http://www.w3.org/2000/svg" width="${this.imageData.dimensions.width}" height="${this.imageData.dimensions.height}"></svg>`
+          `<svg xmlns="http://www.w3.org/2000/svg" width="${this.imageData.dimensions.width}" height="${this.imageData.dimensions.height}"><rect width="${this.imageData.dimensions.width}" height="${this.imageData.dimensions.height}" fill="#192024"/></svg>`
         )
       },
       isBackground() {
