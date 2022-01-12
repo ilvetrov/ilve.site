@@ -43,12 +43,25 @@ export default {
 
 	// Modules: https://go.nuxtjs.dev/config-modules
 	modules: [
-		'@nuxtjs/i18n'
+		'@nuxtjs/i18n',
+		'@nuxtjs/redirect-module'
 	],
 
 	router: {
 		trailingSlash: true
 	},
+
+	redirect: [
+		{
+			from: '(?!^\/$|^\/[?].*$)(.*\/[?](.*)$|.*[^/]$)',
+			to: (from, req) => {
+				const base = req._parsedUrl.pathname + '/';
+				const search = req._parsedUrl.search;
+				return base + (search != null ? search : '');
+			},
+			statusCode: 301
+		},
+	],
 
 	i18n: {
 		locales: [

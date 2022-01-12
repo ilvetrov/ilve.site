@@ -167,7 +167,9 @@ import checkOutside from '~/plugins/outside-checker'
           && rawRoutes[rawRoutes.length - 2]?.length > 0
         ) rawRoutes.pop()
         rawRoutes.pop()
-        const parentRouteRaw = rawRoutes.join('/')
+        const parentRouteRaw = rawRoutes.join('/') + (
+          (this.$router.currentRoute !== '/') ? '/' : ''
+        )
         return !!parentRouteRaw.match(/^\//) ? parentRouteRaw : `/${parentRouteRaw}`
       },
       goParent() {
