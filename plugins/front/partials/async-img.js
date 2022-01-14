@@ -8,8 +8,10 @@ const maxParallelHighLoads = Number(document.querySelector('[meta="max-parallel-
 const imagesElements = document.querySelectorAll('[data-async-img]');
 const loadingLazySupport = "loading" in HTMLImageElement.prototype;
 
+const loadedImages = new Set();
+
 const imagesElementsGroups = document.querySelectorAll('[data-async-img-group]');
-const asyncBackgroundOutput = () => document.getElementsByClassName('js-async-background-group')[0];
+const asyncBackgroundOutput = () => document.getElementsByClassName('js-async-background')[0];
 
 for (let scrollBackgroundGroupIteration = 0; scrollBackgroundGroupIteration < imagesElementsGroups.length; scrollBackgroundGroupIteration++) {
   const imageElement = imagesElementsGroups[scrollBackgroundGroupIteration];
@@ -153,6 +155,7 @@ function setSrcForBackground(linkProperties, imageElement) {
     requestAnimationFrame(() => {
       backgroundSetter(linkProperties, imageElement);
       setLoadedClass(imageElement);
+      removeLoadingColor(imageElement);
     });
   }
 }
@@ -172,6 +175,7 @@ function setSrcForImg(linkProperties, imageElement) {
     requestAnimationFrame(() => {
       tagImgSetter(linkProperties, imageElement);
       setLoadedClass(imageElement);
+      removeLoadingColor(imageElement);
     });
   }
 }
@@ -184,26 +188,37 @@ function setLoadedClass(imageElement) {
   imageElement.classList.add('image-loaded');
 }
 
+function removeLoadingColor(imageElement) {
+  imageElement.style.backgroundColor = '';
+}
+
 function setAfterLoad(linkProperties, callback, errorCallback = false) {
+  if (loadedImages.has(linkProperties.src)) return imageLoadedHandler(linkProperties, callback)
+  
   currentImagesLoadList.push(linkProperties);
 
   const newImage = new Image();
   newImage.src = linkProperties.src;
 
-  newImage.onload = () => {
-    callback();
-    disabledImagesLoadList = disabledImagesLoadList.filter(iterable => iterable.linkProperties.src !== linkProperties.src);
-    removeFromArray(currentImagesLoadList, linkProperties);
-  };
+  newImage.onload = () => imageLoadedHandler(linkProperties, callback);
   ['abort', 'error', 'suspend'].map(eventName => {
-    newImage.addEventListener(eventName, () => {
-      if (errorCallback) {
-        errorCallback();
-      }
-      disabledImagesLoadList = disabledImagesLoadList.filter(iterable => iterable.linkProperties.src !== linkProperties.src);
-      removeFromArray(currentImagesLoadList, linkProperties);
-    });
+    newImage.addEventListener(eventName, () => imageErrorLoadHandler(linkProperties, errorCallback));
   });
+}
+
+function imageLoadedHandler(linkProperties, callback) {
+  loadedImages.add(linkProperties.src)
+
+  callback();
+  disabledImagesLoadList = disabledImagesLoadList.filter(iterable => iterable.linkProperties.src !== linkProperties.src);
+  removeFromArray(currentImagesLoadList, linkProperties);
+}
+function imageErrorLoadHandler(linkProperties, errorCallback = false) {
+  if (errorCallback) {
+    errorCallback();
+  }
+  disabledImagesLoadList = disabledImagesLoadList.filter(iterable => iterable.linkProperties.src !== linkProperties.src);
+  removeFromArray(currentImagesLoadList, linkProperties);
 }
 
 function startHighLoad() {

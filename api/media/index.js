@@ -6,7 +6,6 @@ import { cookParamsInObject, getCookedParamData, getCurrentDomain } from "../../
 const router = express.Router()
 
 router.get(`/media`, async (req, res) => {
-  console.log(cookParamsInObject(req.query))
   const result = ['bor', 'biba']
   res.json(result)
 })

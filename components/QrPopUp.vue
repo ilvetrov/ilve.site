@@ -12,7 +12,7 @@
             {{ data.title }}
           </div>
           <!-- /.pop-up-qr__title -->
-          <img :src="'/img/' + data.qr" class="pop-up-qr__img" :alt="$t('qr_code')">
+          <img-async :src="'/img/' + data.qr" class="pop-up-qr__img" :alt="$t('qr_code')"/>
         </div>
         <!-- /.pop-up-qr__img-wrap -->
       </div>

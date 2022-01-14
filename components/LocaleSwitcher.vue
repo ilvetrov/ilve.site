@@ -2,10 +2,11 @@
 	<div class="locale-switcher-wrap">
 		<nuxt-link
 			:to="switchLocalePath(anotherLocale.code)"
+			no-prefetch
 			class="locale-switcher not-link-style"
 			:title="$t('switch_to', anotherLocale.code) + ' ' + anotherLocale.name"
 		>
-			<img src="/img/right-arrow.svg" :alt="$t('switch_to', anotherLocale.code)" class="locale-switcher__icon">
+			<img-async src="/img/right-arrow.svg" :alt="$t('switch_to', anotherLocale.code)" class="locale-switcher__icon"/>
 			{{ anotherLocale.name }}
 		</nuxt-link>
 	</div>

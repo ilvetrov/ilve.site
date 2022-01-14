@@ -36,11 +36,17 @@
 
 <script>
 import { DB } from '~/db'
+import getHead from '~/plugins/get-head'
 	export default {
 		data() {
 			return {
 				db: new DB(this.$i18n.locale, (key) => this.$i18n.t(key))
 			}
+		},
+		head() {
+			return getHead(this, {
+				title: this.$t('ilia_vetrov') + '. ' + this.$t('portfolio') + '. ' + this.$t('web_development'),
+			})
 		}
 	}
 </script>

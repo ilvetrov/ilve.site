@@ -1,12 +1,12 @@
 <template>
 	<nuxt-link :to="localePath('/')" class="logo-link not-link-style">
 		<div :class="['logo-link__wrap', 'logo-link__wrap_' + $t('logo_lang')]">
-			<img
+			<img-async
 				class="logo"
 				:src="`/img/ilve-site-logo-${$t('logo_lang')}.svg`"
 				:alt="$t('ilia_vetrov')"
 				:title="$t('ilia_vetrov')"
-			>
+			/>
 		</div>
 		<!-- /.logo__wrap -->
 	</nuxt-link>

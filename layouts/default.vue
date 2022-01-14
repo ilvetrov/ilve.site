@@ -1,5 +1,6 @@
 <template>
 	<div class="site">
+		<Setup/>
 		<Backdrops/>
 		<nuxt/>
 	</div>
@@ -7,12 +8,12 @@
 </template>
 
 <script>
+import getHead from "~/plugins/get-head";
 export default {
 	head() {
-		return this.$nuxtI18nHead({ addSeoAttributes: true })
-	},
-	mounted() {
-		console.log(this.$i18n.localeCodes[0])
+		return {
+			...this.$nuxtI18nHead({ addSeoAttributes: true })
+		}
 	}
 }
 </script>

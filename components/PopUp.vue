@@ -34,7 +34,7 @@
         popUp.calcHeaderLogo = calcHeaderLogo;
       }());
     </script>
-    <div class="pop-up__overlay" @click.stop="closePopUp()"></div>
+    <div class="pop-up__overlay"></div>
     <div :class="'pop-up__wrap js-for-replace-scrollbar ' + wrapClass">
       <slot v-if="plain"></slot>
       <div v-else class="pop-up__content">
@@ -46,7 +46,7 @@
                 var remMod = getRem() / 16;
                 var bottomOffset = 64 * remMod;
                 var headerLogoPos = document.querySelector('[data-header-logo]')?.getBoundingClientRect();
-                var headerOffset = (headerLogoPos ? (headerLogoPos.y + headerLogoPos.height) : 0) + (32 * remMod);
+                var headerOffset = Math.max((headerLogoPos ? (headerLogoPos.y + headerLogoPos.height) : 0) + (32 * remMod), 14 * remMod);
                 var maxUXHeight = Math.max(window.innerHeight * 0.6, 457);
                 var maxHeight = Math.min(Math.max(100, window.innerHeight - headerOffset - bottomOffset), maxUXHeight);
                 content.style.maxHeight = maxHeight + 'px';
@@ -69,7 +69,7 @@
       </div>
       <!-- /.pop-up__content -->
       <div class="pop-up__close-block">
-        <img class="pop-up__close click-extender" src="/img/close.svg" :alt="$t('close')" @click.stop="closePopUp()">
+        <img-async class="pop-up__close click-extender" src="/img/close.svg" :alt="$t('close')" bor @click.stop.native="closePopUp"/>
       </div>
       <!-- /.pop-up__close-block -->
     </div>

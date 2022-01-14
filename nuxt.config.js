@@ -13,13 +13,20 @@ export default {
 			{ charset: 'utf-8' },
 			{ name: 'viewport', content: 'width=device-width, initial-scale=1' },
 			{ hid: 'description', name: 'description', content: '' },
-			{ name: 'format-detection', content: 'telephone=no' }
+			{ name: 'format-detection', content: 'telephone=no' },
+			{ name: 'msapplication-TileColor', content: '#da532c' },
+			{ name: 'theme-color', content: '#1a1c21' },
 		],
 		link: [
-			{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-			// { rel: 'preload', as: 'font', href: '/fonts/manrope-300.woff2', crossorigin: 'anonymous' },
-			// { rel: 'preload', as: 'font', href: '/fonts/manrope-400.woff2', crossorigin: 'anonymous' },
-			// { rel: 'preload', as: 'font', href: '/fonts/manrope-700.woff2', crossorigin: 'anonymous' }
+			{ rel: 'icon', type: 'image/png', sizes: '16x16', href: '/favicon-16x16.png' },
+			{ rel: 'icon', type: 'image/png', sizes: '32x32', href: '/favicon-32x32.png' },
+			{ rel: 'icon', type: 'image/png', sizes: '192x192', href: '/android-chrome-192x192.png' },
+			{ rel: 'apple-touch-icon', type: 'image/png', sizes: '180x180', href: '/apple-touch-icon.png' },
+			{ rel: 'mask-icon', color: '#5bbad5', href: '/safari-pinned-tab.svg' },
+			{ rel: 'manifest', href: '/site.webmanifest' },
+			{ rel: 'preload', as: 'font', href: '/fonts/manrope-300.woff2', crossorigin: 'anonymous' },
+			{ rel: 'preload', as: 'font', href: '/fonts/manrope-400.woff2', crossorigin: 'anonymous' },
+			{ rel: 'preload', as: 'font', href: '/fonts/manrope-700.woff2', crossorigin: 'anonymous' }
 		]
 	},
 

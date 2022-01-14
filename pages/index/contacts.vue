@@ -5,7 +5,7 @@
       <ul class="contacts">
         <li v-for="(contact, index) in db.getContacts()" :key="'contact-' + index" class="contact contacts__item">
           <div class="contact__header">
-            <img-async :src="'/img/' + contact.icon" :alt="contact.title" class="contact__icon"/>
+            <img-async :src="contact.icon" :alt="contact.title" class="contact__icon"/>
             <h3 class="contact__title">
               {{ contact.title }}
             </h3>
@@ -78,9 +78,15 @@
 import { DB } from '~/db'
 import { showPopUp } from '~/plugins/pop-up'
 import { blockScroll, unblockScroll } from '~/plugins/block-scroll'
+import getHead from '~/plugins/get-head'
 export default {
   transition: {
     name: 'pop-up'
+  },
+  head() {
+    return getHead(this, {
+      title: this.$t('ilia_vetrov') + '. ' + this.$t('contacts') + '. ' + this.$t('web_development')
+    })
   },
   data() {
     return {
@@ -143,6 +149,11 @@ export default {
       color: #C4BFFF;
       font-size: .875rem;
       line-height: 1;
+      transition: color .15s;
+
+      &:hover, &:focus {
+        color: #d9d6fd;
+      }
     }
     &__qr {
       margin-left: .6875rem;

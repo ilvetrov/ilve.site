@@ -1,6 +1,6 @@
 <template>
   <div
-    v-if="isBrowser() && isBackground()"
+    v-if="isBrowser() && !fromServer() && isBackground()"
     :style="`background-image: url(${src})`"
   >
     <slot></slot>
@@ -8,25 +8,26 @@
   <div
     v-else-if="isBackground()"
     :data-async-img="insertImageSettings()"
+    :style="`background-color: ${loadingColor}`"
   >
     <slot></slot>
   </div>
   <img
-    v-else-if="!isBrowser() && imageDataExists()"
+    v-else-if="!isBrowser() && imageDataExists() && checkTheNeedForLazy()"
     :src="createBlank()"
     :data-async-img="insertImageSettings()"
-    loading="lazy"
-  >
-  <img
-    v-else-if="imageDataExists()"
-    :src="createBlank()"
-    :data-browser-src="src"
+    :width="imageData.dimensions.width"
+    :height="imageData.dimensions.height"
     loading="lazy"
   >
   <img
     v-else
     :src="src"
+    :width="getSize('width')"
+    :height="getSize('height')"
     loading="lazy"
+    :style="!isSvg() ? `background-color: ${loadingColor}` : null"
+    @load="!isSvg() ? removeLoadingColor : null"
   >
 </template>
 
@@ -48,6 +49,7 @@ import imagesData from "../images-data.json";
     },
     data() {
       return {
+        loadingColor: '#192024',
         imageData: imagesData['static' + this.$props.src] ?? {},
         imageSettingsDefault: {
           src: this.$props.src,
@@ -59,23 +61,29 @@ import imagesData from "../images-data.json";
         imageSettings: {}
       }
     },
-    mounted() {
-      if (this.$el.hasAttribute('data-browser-src')) {
-        setTimeout(() => {
-          this.$el.setAttribute('src', this.$el.getAttribute('data-browser-src'))
-        }, 0);
-      }
-    },
     methods: {
       isBrowser() {
         return process.browser
       },
+      fromServer() {
+        return this?.$el?.hasAttribute('data-async-img')
+      },
       imageDataExists() {
         return Object.keys(this.imageData).length > 0
       },
+      isSvg() {
+        const parts = this.src.split('.')
+        return parts[parts.length - 1] === 'svg'
+      },
+      getSize(prop) {
+        return this.imageDataExists() ? this.imageData.dimensions[prop] : null
+      },
+      checkTheNeedForLazy() {
+        return !this.isSvg() && this.imageData.size > process.env.MIN_SIZE_TO_LAZY_LOAD
+      },
       createBlank() {
         return 'data:image/svg+xml,' + encodeURIComponent(
-          `<svg xmlns="http://www.w3.org/2000/svg" width="${this.imageData.dimensions.width}" height="${this.imageData.dimensions.height}"><rect width="${this.imageData.dimensions.width}" height="${this.imageData.dimensions.height}" fill="#192024"/></svg>`
+          `<svg xmlns="http://www.w3.org/2000/svg" width="${this.imageData.dimensions.width}" height="${this.imageData.dimensions.height}"><rect width="${this.imageData.dimensions.width}" height="${this.imageData.dimensions.height}" fill="${this.loadingColor}"/></svg>`
         )
       },
       isBackground() {
@@ -99,6 +107,9 @@ import imagesData from "../images-data.json";
       },
       insertImageSettings() {
         return escapeHtml(JSON.stringify(this.getImageSettings()))
+      },
+      removeLoadingColor() {
+        this.$el.style.backgroundColor = ''
       }
     }
   }

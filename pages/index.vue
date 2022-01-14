@@ -49,7 +49,7 @@
 							</div>
 							<!-- /.unmute-tip__arrow -->
 							<div class="unmute-tip-text unmute-tip__block">
-								{{ $t('unmute') }} <img class="unmute-tip-text__icon" src="/img/volume-up.svg" alt>
+								{{ $t('unmute') }} <img-async class="unmute-tip-text__icon" src="/img/volume-up.svg" alt/>
 							</div>
 							<!-- /.unmute-tip-text -->
 						</div>
@@ -58,11 +58,11 @@
 					<!-- /.index-page__media-wrap -->
 					<div class="index-page__links">
 						<div class="index-page__link">
-							<NuxtLink :to="localePath('/portfolio')" class="index-link not-link-style">{{ $t('portfolio') }} <img src="/img/right-arrow-blue.svg" class="index-link__arrow" :alt="$t('open')"></NuxtLink>
+							<NuxtLink :to="localePath('/portfolio')" no-prefetch class="index-link not-link-style">{{ $t('portfolio') }} <img-async src="/img/right-arrow-blue.svg" class="index-link__arrow" :alt="$t('open')"/></NuxtLink>
 						</div>
 						<!-- /.index-page__link -->
 						<div class="index-page__link">
-							<NuxtLink :to="localePath('/contacts')" class="index-link not-link-style">{{ $t('contacts') }} <img src="/img/right-arrow-blue.svg" class="index-link__arrow" :alt="$t('open')"></NuxtLink>
+							<NuxtLink :to="localePath('/contacts')" prefetch class="index-link not-link-style">{{ $t('contacts') }} <img-async src="/img/right-arrow-blue.svg" class="index-link__arrow" :alt="$t('open')"/></NuxtLink>
 						</div>
 						<!-- /.index-page__link -->
 					</div>
@@ -81,22 +81,47 @@
 <script>
 	import { DB } from '~/db'
 	import { VideoTip } from "../plugins/video-tip"
+	import { checkLoadEvent } from "../plugins/check-load-event";
+	import { preloadImages } from "../plugins/preload-images";
+	import getHead from '~/plugins/get-head';
 	export default {
 		data() {
 			return {
 				db: new DB(this.$i18n.locale, (key) => this.$i18n.t(key))
 			}
 		},
+		head() {
+			return getHead(this)
+		},
 		mounted() {
-			if (process.browser) {
-				const helloVideoTip = document.querySelector('[data-video-tip="hello"]')
-				new VideoTip(helloVideoTip, undefined, {
-					animationElement: helloVideoTip.parentElement
-				})
+			const helloVideoTip = document.querySelector('[data-video-tip="hello"]')
+			new VideoTip(helloVideoTip, undefined, {
+				animationElement: helloVideoTip.parentElement
+			})
+
+			if (checkLoadEvent()) {
+				setTimeout(() => this.preloadOtherImages(), 1000)
+			} else {
+				window.addEventListener('load', () => setTimeout(() => this.preloadOtherImages(), 1000))
 			}
 		},
 		beforeDestroy() {
 			VideoTip.destroy()
+		},
+		methods: {
+			preloadOtherImages() {
+				preloadImages(this.getImagesForPreload())
+			},
+			getImagesForPreload() {
+				return [
+					...this.getContactsIcons(),
+					'/img/qr-icon.svg',
+					'/img/close.svg',
+				]
+			},
+			getContactsIcons() {
+				return this.db.getContacts().map(contact => contact.icon)
+			}
 		}
 	}
 </script>

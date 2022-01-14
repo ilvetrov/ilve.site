@@ -4,7 +4,6 @@ function getPageHeight() {
 }
 if (process.browser) {
   window.addEventListener('resize', function() {
-    console.log('pageHeight!')
     pageHeight = getPageHeight()
   })
 }

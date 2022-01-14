@@ -30,13 +30,15 @@ class ProcessImg {
       const size = Math.round(stats.size / 1024)
       const dimensions = imageSize(file)
       const type = dimensions.type
+      delete dimensions.type
 
-      if (type === 'svg' && size < 7) return
-      
-      this.writeToOutput(file, {
+      const data = {
         dimensions,
+        type,
         size: Math.round(stats.size / 1024)
-      })
+      }
+      
+      this.writeToOutput(file, data)
     })
   }
 
