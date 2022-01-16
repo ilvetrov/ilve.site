@@ -74,56 +74,61 @@
 		</div>
 		<!-- /.index-page__wrap -->
 		<NuxtChild :key="$route.name"/>
+		{{ saveAB() }}
 	</div>
 	<!-- /.index-page -->
 </template>
 
 <script>
-	import { DB } from '~/db'
-	import { VideoTip } from "../plugins/video-tip"
-	import { checkLoadEvent } from "../plugins/check-load-event";
-	import { preloadImages } from "../plugins/preload-images";
-	import getHead from '~/plugins/get-head';
-	export default {
-		data() {
-			return {
-				db: new DB(this.$i18n.locale, (key) => this.$i18n.t(key))
-			}
-		},
-		head() {
-			return getHead(this)
-		},
-		mounted() {
-			const helloVideoTip = document.querySelector('[data-video-tip="hello"]')
-			new VideoTip(helloVideoTip, undefined, {
-				animationElement: helloVideoTip.parentElement
-			})
+import { DB } from '~/db'
+import { VideoTip } from "../plugins/video-tip"
+import { checkLoadEvent } from "../plugins/check-load-event";
+import { preloadImages } from "../plugins/preload-images";
+import getHead from '~/plugins/get-head';
+import ABTesting from '~/plugins/ab-testing';
+export default {
+	data() {
+		return {
+			db: new DB(this)
+		}
+	},
+	head() {
+		return getHead(this)
+	},
+	mounted() {
+		const helloVideoTip = document.querySelector('[data-video-tip="hello"]')
+		new VideoTip(helloVideoTip, undefined, {
+			animationElement: helloVideoTip.parentElement
+		})
 
-			if (checkLoadEvent()) {
-				setTimeout(() => this.preloadOtherImages(), 1000)
-			} else {
-				window.addEventListener('load', () => setTimeout(() => this.preloadOtherImages(), 1000))
-			}
+		if (checkLoadEvent()) {
+			setTimeout(() => this.preloadOtherImages(), 1000)
+		} else {
+			window.addEventListener('load', () => setTimeout(() => this.preloadOtherImages(), 1000))
+		}
+	},
+	beforeDestroy() {
+		VideoTip.destroy()
+	},
+	methods: {
+		preloadOtherImages() {
+			preloadImages(this.getImagesForPreload())
 		},
-		beforeDestroy() {
-			VideoTip.destroy()
+		getImagesForPreload() {
+			return [
+				...this.getContactsIcons(),
+				'/img/qr-icon.svg',
+				'/img/close.svg',
+			]
 		},
-		methods: {
-			preloadOtherImages() {
-				preloadImages(this.getImagesForPreload())
-			},
-			getImagesForPreload() {
-				return [
-					...this.getContactsIcons(),
-					'/img/qr-icon.svg',
-					'/img/close.svg',
-				]
-			},
-			getContactsIcons() {
-				return this.db.getContacts().map(contact => contact.icon)
-			}
+		getContactsIcons() {
+			return this.db.getContacts().map(contact => contact.icon)
+		},
+		saveAB() {
+			ABTesting.save()
 		}
 	}
+}
 </script>
 
 <style lang="scss" scoped>

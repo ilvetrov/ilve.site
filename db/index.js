@@ -1,38 +1,32 @@
 import sDB from "../s-db.json"
+import LocalesProcessor from "./types/locales"
+import ABProcessor from "./types/ab"
 
 export class DB {
   static instances = {}
 
-  constructor(locale, localizer) {
-    if (DB.instances.hasOwnProperty(locale)) return DB.instances[locale]
+  constructor(context) {
+    if (DB.instances.hasOwnProperty(context.$i18n.locale)) return DB.instances[context.$i18n.locale]
 
-    this.locale = locale
-    this.localizer = localizer
-    this.storage = this.localize(sDB)
-
-    DB.instances[locale] = this
-  }
-
-  localizeBlock(value) {
-    return this.localize(value.locales[this.locale])
-  }
-
-  localizeText(value) {
-    const insertions = value.match(/\(\((.+?)\)\)/g)
-    if (!insertions) return value
-    for (let i = 0; i < insertions.length; i++) {
-      const insertion = insertions[i];
-      const key = insertion.split('(').join('').split(')').join('')
-      value = value.replace(insertion, this.localizer(key))
+    this.types = {
+      locales: new LocalesProcessor(context),
+      ab: new ABProcessor(context)
     }
-    return value
+
+    this.storage = this.prepare(sDB)
+
+    DB.instances[context.$i18n.locale] = this
   }
 
-  localize(data) {
-    if (typeof data !== 'object') return this.localizeText(data)
+  prepare(data, key = undefined) {
+    if (typeof data !== 'object') return this.prepareText(data)
 
     if (this.getType(data) === 'array') {
-      return data.map(value => this.localize(value))
+      return data.map(value => this.prepare(value))
+    }
+
+    if (data._type !== undefined) {
+      return this.prepareBlock(key, data)
     }
 
     const output = {}
@@ -41,15 +35,29 @@ export class DB {
         const value = data[key]
         if (
           this.getType(value) === 'object'
-          && value._type === 'locales'
+          && Object.keys(this.types).indexOf(value._type) !== -1
         ) {
-          output[key] = this.localizeBlock(value)
+          output[key] = this.prepareBlock(key, value)
         } else {
-          output[key] = this.localize(value)
+          output[key] = this.prepare(value)
         }
       }
     }
     return output
+  }
+
+  prepareBlock(key, data) {
+    return this.prepare(this.types[data._type].block(key, data), key)
+  }
+
+  prepareText(text) {
+    for (const typeName in this.types) {
+      if (Object.hasOwnProperty.call(this.types, typeName)) {
+        const typeProccessor = this.types[typeName];
+        text = typeProccessor.text(text)
+      }
+    }
+    return text
   }
 
   getType(value) {

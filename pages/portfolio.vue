@@ -40,7 +40,7 @@ import getHead from '~/plugins/get-head'
 	export default {
 		data() {
 			return {
-				db: new DB(this.$i18n.locale, (key) => this.$i18n.t(key))
+				db: new DB(this)
 			}
 		},
 		head() {

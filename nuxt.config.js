@@ -51,7 +51,8 @@ export default {
 	// Modules: https://go.nuxtjs.dev/config-modules
 	modules: [
 		'@nuxtjs/i18n',
-		'@nuxtjs/redirect-module'
+		'@nuxtjs/redirect-module',
+		'cookie-universal-nuxt'
 	],
 
 	router: {

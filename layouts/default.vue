@@ -8,7 +8,6 @@
 </template>
 
 <script>
-import getHead from "~/plugins/get-head";
 export default {
 	head() {
 		return {

@@ -91,7 +91,7 @@ export default {
   data() {
     return {
       counters: {},
-      db: new DB(this.$i18n.locale, (key) => this.$i18n.t(key))
+      db: new DB(this)
     }
   },
   methods: {
