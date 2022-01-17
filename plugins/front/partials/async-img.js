@@ -198,12 +198,13 @@ function setAfterLoad(linkProperties, callback, errorCallback = false) {
   currentImagesLoadList.push(linkProperties);
 
   const newImage = new Image();
-  newImage.src = linkProperties.src;
-
+  
   newImage.onload = () => imageLoadedHandler(linkProperties, callback);
   ['abort', 'error', 'suspend'].map(eventName => {
     newImage.addEventListener(eventName, () => imageErrorLoadHandler(linkProperties, errorCallback));
   });
+  
+  newImage.src = linkProperties.src;
 }
 
 function imageLoadedHandler(linkProperties, callback) {

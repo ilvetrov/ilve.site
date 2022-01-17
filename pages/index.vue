@@ -22,17 +22,26 @@
 					</div>
 					<!-- /.index-page__subtitle -->
 					<div class="index-page__media-wrap">
-						<div :class="{
-							'video-tip index-page__media': true,
-							'centered': db.getHelloVideo()[0].centered
-						}">
+						<div
+							:class="{
+								'video-tip index-page__media': true,
+								'centered': db.getHelloVideo()[0].centered
+							}"
+							:style="db.getHelloVideo()[0].position ? `--position: ${db.getHelloVideo()[0].position}` : null"
+						>
 							<img-async
 								src="/img/home-face.jpg"
 								background
 								class="waiting-animation index-page__background-photo"
 							>
 							</img-async>
-							<video autoplay muted loop class="inner-video index-page__video" data-video-tip="hello">
+							<video
+								autoplay
+								muted
+								loop
+								class="inner-video index-page__video inactive"
+								data-video-tip="hello"
+							>
 								<source-on-load
 									v-for="video in db.getHelloVideo()"
 									:key="video.src"
@@ -86,6 +95,7 @@ import { checkLoadEvent } from "../plugins/check-load-event";
 import { preloadImages } from "../plugins/preload-images";
 import getHead from '~/plugins/get-head';
 import ABTesting from '~/plugins/ab-testing';
+import { metrics } from '~/plugins/metrics';
 export default {
 	data() {
 		return {
@@ -98,7 +108,15 @@ export default {
 	mounted() {
 		const helloVideoTip = document.querySelector('[data-video-tip="hello"]')
 		new VideoTip(helloVideoTip, undefined, {
-			animationElement: helloVideoTip.parentElement
+			animationElement: helloVideoTip.parentElement,
+			playCallback: () => metrics.reachGoal('hello_video_play', {
+				once: true,
+				ab: ['db_hello_video']
+			}),
+			watchedCallback: () => metrics.reachGoal('hello_video_watched', {
+				once: true,
+				ab: ['db_hello_video']
+			}),
 		})
 
 		if (checkLoadEvent()) {
@@ -126,7 +144,8 @@ export default {
 		},
 		saveAB() {
 			ABTesting.save()
-		}
+		},
+		reachGoal: (...attrs) => metrics.reachGoal(...attrs)
 	}
 }
 </script>
@@ -211,6 +230,14 @@ export default {
 		&__media.active & {
 			&__background-photo, &__video {
 				border-radius: .25rem;
+			}
+			&__background-photo {
+				transform: translateY(var(--position, 0px));
+			}
+		}
+		&__media:not(.active) & {
+			&__video {
+				transform: translateY(var(--position, 0px));
 			}
 		}
 		&__unmute-tip {

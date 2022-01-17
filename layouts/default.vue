@@ -8,10 +8,12 @@
 </template>
 
 <script>
+import getHead from '~/plugins/get-head'
 export default {
 	head() {
 		return {
-			...this.$nuxtI18nHead({ addSeoAttributes: true })
+			...this.$nuxtI18nHead({ addSeoAttributes: true }),
+			...getHead(this, {}, {}, true)
 		}
 	}
 }

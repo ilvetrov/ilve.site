@@ -4,6 +4,7 @@ export default class ABTesting {
   static instance = null
   static selectedOrdersNew = {}
   static selectedLabels = {}
+  static selectedWithLocale = {}
 
   constructor(context) {
     if (ABTesting.instance) return ABTesting.instance
@@ -12,22 +13,32 @@ export default class ABTesting {
 
     ABTesting.instance = this
   }
+
   getValue(name, data) {
-    if (this.getStored()[name] !== undefined) {
-      const selectedData = data[this.getStored()[name]]
-      ABTesting.selectedLabels[name] = selectedData.label
-      return selectedData.value
-    }
-    
-    const selectedOrder = randomNumber(0, data.length - 1)
+    const selectedOrder = this.getStored()[name] ?? ABTesting.selectedOrdersNew[name] ?? randomNumber(0, data.length - 1)
     const selectedData = data[selectedOrder]
-    ABTesting.selectedOrdersNew[name] = selectedOrder
+    if (this.getStored()[name] === undefined) {
+      ABTesting.selectedOrdersNew[name] = selectedOrder
+    }
     ABTesting.selectedLabels[name] = selectedData.label
+    ABTesting.selectedWithLocale[name] = this.context.$i18n.locale
     return selectedData.value
   }
 
   getStored() {
     return this.context.$cookies.get('ab') ?? {}
+  }
+
+  static getLabels() {
+    let output = {}
+    for (const key in this.selectedLabels) {
+      if (Object.hasOwnProperty.call(this.selectedLabels, key)) {
+        const label = this.selectedLabels[key];
+        if (ABTesting.selectedWithLocale[key] !== ABTesting.instance.context.$i18n.locale) continue
+        output[key] = label
+      }
+    }
+    return output
   }
 
   static save() {

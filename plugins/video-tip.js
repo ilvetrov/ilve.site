@@ -24,6 +24,9 @@ export class VideoTip {
     
     this.pureHandlers = new PureHandlers()
 
+    this.playCallback = props.playCallback
+    this.watchedCallback = props.watchedCallback
+
     this.initForTurnOff()
     this.pureHandlers.addEventListener(this.videoElement, 'click', () => this.clickHandler())
     this.pureHandlers.addEventListener(this.videoElement, 'ended', () => {
@@ -61,6 +64,7 @@ export class VideoTip {
   endActiveHandler() {
     this.toStart()
     this.turnOff()
+    this.watchedCallback && this.watchedCallback(this)
   }
 
   play() {
@@ -74,6 +78,8 @@ export class VideoTip {
     this.videoElement.loop = false
 
     this.animationElement.classList.add('active')
+
+    this.playCallback && this.playCallback(this)
   }
 
   toStart() {

@@ -43,7 +43,9 @@
           </div>
           <!-- /.contact__header -->
           <div class="contact__link-wrap">
-            <a :href="contact.link" target="_blank" class="contact__link not-link-style">
+            <a :href="contact.link" target="_blank" class="contact__link not-link-style" @click="reachGoal('contact_click', {
+              ab: ['db_hello_video']
+            })">
               {{ contact.link_text }}
             </a>
             <!-- /.contact__link -->
@@ -79,6 +81,7 @@ import { DB } from '~/db'
 import { showPopUp } from '~/plugins/pop-up'
 import { blockScroll, unblockScroll } from '~/plugins/block-scroll'
 import getHead from '~/plugins/get-head'
+import { metrics } from '~/plugins/metrics'
 export default {
   transition: {
     name: 'pop-up'
@@ -99,7 +102,8 @@ export default {
       if (!this.$data.counters.hasOwnProperty(name)) this.$data.counters[name] = -1
       return ++this.$data.counters[name]
     },
-    showPopUp
+    showPopUp,
+    reachGoal: (...attrs) => metrics.reachGoal(...attrs)
   },
   mounted() {
     if (process.browser) {

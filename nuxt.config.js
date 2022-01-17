@@ -37,7 +37,8 @@ export default {
 
 	// Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
 	plugins: [
-		'~/plugins/front/global'
+		'~/plugins/front/global',
+		'~/plugins/metrics'
 	],
 
 	// Auto import components: https://go.nuxtjs.dev/config-components
@@ -61,12 +62,8 @@ export default {
 
 	redirect: [
 		{
-			from: '(?!^\/$|^\/[?].*$)(.*\/[?](.*)$|.*[^/]$)',
-			to: (from, req) => {
-				const base = req._parsedUrl.pathname + '/';
-				const search = req._parsedUrl.search;
-				return base + (search != null ? search : '');
-			},
+			from: '^(\\/[^\\?]*[^\\/])(\\?.*)?$',
+			to: '$1/$2',
 			statusCode: 301
 		},
 	],
