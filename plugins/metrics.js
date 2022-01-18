@@ -6,14 +6,16 @@ class Client {
   constructor() {
     this.bank = []
 
-    setInterval(() => {
-      this.bank.forEach(action => {
-        if (this.activeChecker()) {
-          removeFromArray(this.bank, action)
-          action()
-        }
-      })
-    }, 200);
+    if (process.browser) {
+      setInterval(() => {
+        this.bank.forEach(action => {
+          if (this.activeChecker()) {
+            removeFromArray(this.bank, action)
+            action()
+          }
+        })
+      }, 200)
+    }
   }
   load() {
     throw 'Specify load method!'
