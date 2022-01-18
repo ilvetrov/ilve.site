@@ -16,7 +16,7 @@
           </div>
           <!-- /.error-page__title -->
           <div class="error-page__link-wrap">
-            <NuxtLink class="error-page__link not-link-style" to="/">{{ $t('go_to_home_page') }}</NuxtLink>
+            <NuxtLink class="error-page__link not-link-style" :to="localePath('/')">{{ $t('go_to_home_page') }}</NuxtLink>
           </div>
           <!-- /.error-page__link-wrap -->
         </main>
