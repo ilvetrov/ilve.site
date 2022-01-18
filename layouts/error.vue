@@ -37,8 +37,14 @@
 </template>
 
 <script>
+import getHead from '~/plugins/get-head'
   export default {
-    props: ['error']
+    props: ['error'],
+    head() {
+      return getHead(this, {
+        title: (this.error.statusCode === 404 ? this.$t('page_not_found') : this.$t('an_error_occurred')) + ' — ' + this.$t('ilia_vetrov') + '. ' + this.$t('web_development')
+      })
+    }
   }
 </script>
 
