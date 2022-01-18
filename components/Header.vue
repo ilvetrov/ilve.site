@@ -1,7 +1,7 @@
 <template>
 	<header class="header">
 		<div class="header__wrap" data-header-logo>
-			<LocaleSwitcher/>
+			<LocaleSwitcher :errorpage="(typeof this.errorpage === 'string') ? true : null"/>
 			<LogoWrap/>
 		</div>
 		<!-- /.header__wrap -->
@@ -11,19 +11,19 @@
 
 <script>
 	export default {
-		
+		props: ['errorpage']
 	}
 </script>
 
 <style lang="scss" scoped>
 	.header {
-		margin-top: 2.75rem;
+		padding-top: 2.75rem;
 
 		@media (min-width: 1024px) {
-			margin-top: 5.4vw;
+			padding-top: 5.4vw;
 		}
 		@media (min-width: 1489px) {
-			margin-top: 4rem;
+			padding-top: 4rem;
 		}
 	}
 </style>

@@ -1,6 +1,7 @@
 <template>
 	<div class="locale-switcher-wrap">
 		<nuxt-link
+			v-if="checkNotErrorPage()"
 			:to="switchLocalePath(anotherLocale.code)"
 			no-prefetch
 			class="locale-switcher not-link-style"
@@ -9,6 +10,15 @@
 			<img-async src="/img/right-arrow.svg" :alt="$t('switch_to', anotherLocale.code)" class="locale-switcher__icon"/>
 			{{ anotherLocale.name }}
 		</nuxt-link>
+		<a
+			v-else
+			:href="customRoute(anotherLocale.code)"
+			class="locale-switcher not-link-style"
+			:title="$t('switch_to', anotherLocale.code) + ' ' + anotherLocale.name"
+		>
+			<img-async src="/img/right-arrow.svg" :alt="$t('switch_to', anotherLocale.code)" class="locale-switcher__icon"/>
+			{{ anotherLocale.name }}
+		</a>
 	</div>
 </template>
 
@@ -19,6 +29,23 @@ export default {
 			anotherLocale: $i18n.locales.find(locale => locale.code !== $i18n.locale)
 		}
 	},
+	props: ['errorpage'],
+	methods: {
+		customRoute(to) {
+			if (this.$route.path === '/') return '/' + this.anotherLocale + '/'
+
+			const regexp = new RegExp('^\/(' + this.$i18n.locales.map(locale => `(${locale.code})`).join('|') + ')\/')
+
+			if (this.$i18n.locale === this.$i18n.defaultLocale) {
+				return '/' + to + this.$route.path
+			} else {
+				return this.$route.path.replace(regexp, '/')
+			}
+		},
+		checkNotErrorPage() {
+			return typeof this.errorpage === 'object'
+		}
+	}
 }
 </script>
 

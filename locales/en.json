@@ -19,5 +19,8 @@
 	"open_on_phone_h": "Open<br>on phone",
 	"admin_panel_guide": "Admin panel guide",
 	"open_on_computer": "Open on computer",
-	"_about_site": "Portfolio, contacts. Watch a video about the site."
+	"_about_site": "Portfolio, contacts. Watch a video about the site.",
+	"page_not_found": "Page not found",
+	"an_error_occurred": "An error occurred",
+	"go_to_home_page": "Go to home page"
 }
