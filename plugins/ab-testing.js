@@ -1,6 +1,9 @@
 import { randomNumber } from "./random";
+import { ServerOrBrowserClassFabric } from "./server-or-browser-class";
 
-export default class ABTesting {
+const ABTesting = new ServerOrBrowserClassFabric('ABTesting', () => {
+console.log('init ab testing')
+return class ABTesting {
   static instance = null
   static selectedOrdersNew = {}
   static selectedLabels = {}
@@ -55,3 +58,6 @@ export default class ABTesting {
     })
   }
 }
+})
+
+export default ABTesting

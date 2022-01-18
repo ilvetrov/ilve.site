@@ -1,6 +1,5 @@
 import { doOnce } from "./do-once"
 import { removeFromArray } from "./partials/remove-from-array";
-import ScriptLoader from "./script-loader"
 import ABTesting from "./ab-testing"
 
 class Client {
@@ -31,7 +30,7 @@ class Client {
   abLabels(abKeys) {
     if (!Array.isArray(abKeys)) return {}
 
-    const labels = ABTesting.getLabels()
+    const labels = (ABTesting.getter()).getLabels()
 
     let output = {}
     for (let i = 0; i < abKeys.length; i++) {
@@ -40,34 +39,6 @@ class Client {
       output[abKey] = labels[abKey]
     }
     return output
-  }
-}
-
-class GoogleAnalyticsClient extends Client {
-  constructor(id) {
-    super()
-    this.id = id
-    this.src = `https://www.googletagmanager.com/gtag/js?id=${id}`
-    this.loader = new ScriptLoader(this.src)
-  }
-  load() {
-    this.loader.startLoading();
-    
-    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-    window.dataLayer = window.dataLayer || []
-    window.gtag = function(){dataLayer.push(arguments)}
-    gtag('js', new Date())
-    gtag('config', this.id)
-  }
-  activeChecker() {
-    return typeof gtag !== 'undefined'
-  }
-  reachGoal(name, props = {}) {
-    console.log(name, props)
   }
 }
 
@@ -88,10 +59,14 @@ class YandexMetrikaClient extends Client {
     return typeof ym !== 'undefined'
   }
   reachGoal(name, props = {}) {
-    ym(this.id, 'reachGoal', name, {
+    console.log(name, {
       ...this.abLabels(props.ab),
       lang: document.documentElement.lang
     })
+    // ym(this.id, 'reachGoal', name, {
+    //   ...this.abLabels(props.ab),
+    //   lang: document.documentElement.lang
+    // })
   }
 }
 

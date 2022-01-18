@@ -3,19 +3,13 @@ import LocalesProcessor from "./types/locales"
 import ABProcessor from "./types/ab"
 
 export class DB {
-  static instances = {}
-
   constructor(context) {
-    if (DB.instances.hasOwnProperty(context.$i18n.locale)) return DB.instances[context.$i18n.locale]
-
     this.types = {
       locales: new LocalesProcessor(context),
       ab: new ABProcessor(context)
     }
 
     this.storage = this.prepare(sDB)
-
-    DB.instances[context.$i18n.locale] = this
   }
 
   prepare(data, key = undefined) {

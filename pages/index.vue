@@ -45,7 +45,7 @@
 								<source-on-load
 									v-for="video in db.getHelloVideo()"
 									:key="video.src"
-									:src="'/video/' + video.src"
+									:src="video.src"
 									:type="video.type"
 								/>
 							</video>
@@ -99,6 +99,7 @@ import { metrics } from '~/plugins/metrics';
 export default {
 	data() {
 		return {
+			abTesting: (ABTesting.getter(this)),
 			db: new DB(this)
 		}
 	},
@@ -143,7 +144,7 @@ export default {
 			return this.db.getContacts().map(contact => contact.icon)
 		},
 		saveAB() {
-			ABTesting.save()
+			this.abTesting.save()
 		},
 		reachGoal: (...attrs) => metrics.reachGoal(...attrs)
 	}
@@ -206,7 +207,7 @@ export default {
 			}
 			&.active {
 				max-height: 200%;
-				border-radius: 0;
+				border-radius: .25rem;
 			}
 		}
 		&__background-photo, &__video {
