@@ -59,14 +59,10 @@ class YandexMetrikaClient extends Client {
     return typeof ym !== 'undefined'
   }
   reachGoal(name, props = {}) {
-    console.log(name, {
+    ym(this.id, 'reachGoal', name, {
       ...this.abLabels(props.ab),
       lang: document.documentElement.lang
     })
-    // ym(this.id, 'reachGoal', name, {
-    //   ...this.abLabels(props.ab),
-    //   lang: document.documentElement.lang
-    // })
   }
 }
 
