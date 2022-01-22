@@ -42,6 +42,10 @@
             <!-- /.contact__qr -->
           </div>
           <!-- /.contact__header -->
+          <div v-if="contact.warn_text" class="contact__warn-text">
+            {{ contact.warn_text }}
+          </div>
+          <!-- /.contact__warn-text -->
           <div class="contact__link-wrap">
             <a :href="contact.link" target="_blank" class="contact__link not-link-style" @click="reachGoal('contact_click', {
               ab: ['db_hello_video']
@@ -51,13 +55,6 @@
             <!-- /.contact__link -->
           </div>
           <!-- /.contact__link-wrap -->
-          <div v-if="false" class="contact__qr-block">
-            <div class="contact__qr-title">
-              {{ $t('or_scan') }}
-            </div>
-            <!-- /.contact__qr-title -->
-          </div>
-          <!-- /.contact__qr-block -->
         </li>
         <!-- /.contact -->
       </ul>
@@ -129,8 +126,11 @@ export default {
     }
   }
   .contact {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
     &__header {
-      margin-bottom: .3125rem;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -145,8 +145,15 @@ export default {
       font-weight: 400;
       text-align: center;
     }
+    &__warn-text {
+      text-align: center;
+      color: #ffa5a5;
+      font-size: .875rem;
+      margin-top: .3125rem;
+    }
     &__link-wrap {
       text-align: center;
+      margin-top: .3125rem;
     }
     &__link {
       font-weight: 400;
@@ -172,6 +179,8 @@ export default {
   }
   .contact-qr {
     cursor: pointer;
+    position: relative;
+    bottom: .0625rem;
 
     &__wrap {
       position: relative;
