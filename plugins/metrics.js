@@ -61,8 +61,6 @@ class YandexMetrikaClient extends Client {
     return typeof ym !== 'undefined'
   }
   reachGoal(name, props = {}) {
-    console.log(name)
-    return false
     ym(this.id, 'reachGoal', name, {
       ...this.abLabels(props.ab),
       lang: document.documentElement.lang
