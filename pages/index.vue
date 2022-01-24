@@ -110,14 +110,24 @@ export default {
 		const helloVideoTip = document.querySelector('[data-video-tip="hello"]')
 		new VideoTip(helloVideoTip, undefined, {
 			animationElement: helloVideoTip.parentElement,
-			playCallback: () => metrics.reachGoal('hello_video_play', {
-				once: true,
-				ab: ['db_hello_video']
-			}),
-			watchedCallback: () => metrics.reachGoal('hello_video_watched', {
-				once: true,
-				ab: ['db_hello_video']
-			}),
+			playCallback: () => {
+				metrics.reachGoal('hello_video_play', {
+					once: true,
+					ab: ['db_hello_video']
+				})
+				metrics.reachGoal(`hello_video_play_${ABTesting.getter(this).selectedLabels['db_hello_video']}`, {
+					once: true
+				})
+			},
+			watchedCallback: () => {
+				metrics.reachGoal('hello_video_watched', {
+					once: true,
+					ab: ['db_hello_video']
+				})
+				metrics.reachGoal(`hello_video_watched_${ABTesting.getter(this).selectedLabels['db_hello_video']}`, {
+					once: true
+				})
+			},
 		})
 
 		if (checkLoadEvent()) {

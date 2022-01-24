@@ -47,9 +47,7 @@
           </div>
           <!-- /.contact__warn-text -->
           <div class="contact__link-wrap">
-            <a :href="contact.link" target="_blank" class="contact__link not-link-style" @click="reachGoal('contact_click', {
-              ab: ['db_hello_video']
-            })">
+            <a :href="contact.link" target="_blank" class="contact__link not-link-style" @click="contactClick">
               {{ contact.link_text }}
             </a>
             <!-- /.contact__link -->
@@ -79,6 +77,7 @@ import { showPopUp } from '~/plugins/pop-up'
 import { blockScroll, unblockScroll } from '~/plugins/block-scroll'
 import getHead from '~/plugins/get-head'
 import { metrics } from '~/plugins/metrics'
+import ABTesting from '~/plugins/ab-testing'
 export default {
   transition: {
     name: 'pop-up'
@@ -100,7 +99,12 @@ export default {
       return ++this.$data.counters[name]
     },
     showPopUp,
-    reachGoal: (...attrs) => metrics.reachGoal(...attrs)
+    contactClick() {
+      metrics.reachGoal('contact_click', {
+        ab: ['db_hello_video']
+      })
+      metrics.reachGoal(`contact_click_${ABTesting.getter(this).selectedLabels['db_hello_video']}`)
+    }
   },
   mounted() {
     if (process.browser) {
