@@ -103,7 +103,10 @@ export default {
       metrics.reachGoal('contact_click', {
         ab: ['db_hello_video']
       })
-      metrics.reachGoal(`contact_click_${ABTesting.getter(this).selectedLabels['db_hello_video']}`)
+      const abLabel = ABTesting.getter(this).selectedLabels['db_hello_video']
+      if (abLabel !== undefined) {
+        metrics.reachGoal(`contact_click_${abLabel}`)
+      }
     }
   },
   mounted() {

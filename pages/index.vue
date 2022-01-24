@@ -115,18 +115,24 @@ export default {
 					once: true,
 					ab: ['db_hello_video']
 				})
-				metrics.reachGoal(`hello_video_play_${ABTesting.getter(this).selectedLabels['db_hello_video']}`, {
-					once: true
-				})
+				const abLabel = ABTesting.getter(this).selectedLabels['db_hello_video']
+				if (abLabel !== undefined) {
+					metrics.reachGoal(`hello_video_play_${abLabel}`, {
+						once: true
+					})
+				}
 			},
 			watchedCallback: () => {
 				metrics.reachGoal('hello_video_watched', {
 					once: true,
 					ab: ['db_hello_video']
 				})
-				metrics.reachGoal(`hello_video_watched_${ABTesting.getter(this).selectedLabels['db_hello_video']}`, {
-					once: true
-				})
+				const abLabel = ABTesting.getter(this).selectedLabels['db_hello_video']
+				if (abLabel !== undefined) {
+					metrics.reachGoal(`hello_video_watched_${abLabel}`, {
+						once: true
+					})
+				}
 			},
 		})
 
