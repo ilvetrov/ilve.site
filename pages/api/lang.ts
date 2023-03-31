@@ -62,10 +62,8 @@ export default async function handler(
     const query = mask(req.query, Query, '')
     const result: Success = Lang(query.name)
 
-    if (query.hash) {
-      // Cache for 1 week
-      res.setHeader('Cache-Control', 'max-age=604800')
-    }
+    // Cache for 1 week or 1 hour
+    res.setHeader('Cache-Control', `max-age=${query.hash ? 604800 : 3600}`)
 
     res.status(200).json(result)
   } catch (error) {

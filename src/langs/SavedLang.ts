@@ -12,10 +12,14 @@ export function SavedLang(name?: string): ISavedLang {
 
   return {
     async content() {
-      const langInLocalStorage = lang.content()
+      try {
+        const langInLocalStorage = lang.content()
 
-      if (langInLocalStorage) {
-        return langInLocalStorage
+        if (langInLocalStorage) {
+          return langInLocalStorage
+        }
+      } catch (error) {
+        //
       }
 
       const fromApi = await LangFromApi(name, langs.content()?.hash).content()
