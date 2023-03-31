@@ -1,11 +1,14 @@
 import Head from 'next/head'
 import Image from 'next/image'
-import { Inter } from 'next/font/google'
-import styles from '~/styles/Home.module.css'
+import Link from 'next/link'
+import VercelLogo from '~/assets/vercel.svg'
+import useLang from '~/langs/useLang'
 
-const inter = Inter({ subsets: ['latin'] })
+const styles = {} as Record<string, string> // for dev
 
 export default function Home() {
+  const { nextLang } = useLang()
+
   return (
     <>
       <Head>
@@ -14,8 +17,16 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      <div>
+        <Link href="/biba">Biba page!</Link>
+      </div>
+      <div>
+        <Link href="/" locale={nextLang}>
+          Change to {nextLang}
+        </Link>
+      </div>
       <main className={styles.main}>
-        <div className={styles.description}>
+        <div className={styles.description} style={{ fontWeight: '700' }}>
           <p>
             Get started by editing&nbsp;
             <code className={styles.code}>src/pages/index.tsx</code>
@@ -26,15 +37,7 @@ export default function Home() {
               target="_blank"
               rel="noopener noreferrer"
             >
-              By{' '}
-              <Image
-                src="/vercel.svg"
-                alt="Vercel Logo"
-                className={styles.vercelLogo}
-                width={100}
-                height={24}
-                priority
-              />
+              By <VercelLogo className={styles.vercelLogo}></VercelLogo>
             </a>
           </div>
         </div>
@@ -66,10 +69,10 @@ export default function Home() {
             target="_blank"
             rel="noopener noreferrer"
           >
-            <h2 className={inter.className}>
+            <h2>
               Docs <span>-&gt;</span>
             </h2>
-            <p className={inter.className}>
+            <p>
               Find in-depth information about Next.js features and&nbsp;API.
             </p>
           </a>
@@ -80,10 +83,10 @@ export default function Home() {
             target="_blank"
             rel="noopener noreferrer"
           >
-            <h2 className={inter.className}>
+            <h2>
               Learn <span>-&gt;</span>
             </h2>
-            <p className={inter.className}>
+            <p>
               Learn about Next.js in an interactive course with&nbsp;quizzes!
             </p>
           </a>
@@ -94,10 +97,10 @@ export default function Home() {
             target="_blank"
             rel="noopener noreferrer"
           >
-            <h2 className={inter.className}>
+            <h2>
               Templates <span>-&gt;</span>
             </h2>
-            <p className={inter.className}>
+            <p>
               Discover and deploy boilerplate example Next.js&nbsp;projects.
             </p>
           </a>
@@ -108,10 +111,10 @@ export default function Home() {
             target="_blank"
             rel="noopener noreferrer"
           >
-            <h2 className={inter.className}>
+            <h2>
               Deploy <span>-&gt;</span>
             </h2>
-            <p className={inter.className}>
+            <p>
               Instantly deploy your Next.js site to a shareable URL
               with&nbsp;Vercel.
             </p>
