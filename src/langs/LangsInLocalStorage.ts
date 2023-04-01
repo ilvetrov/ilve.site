@@ -71,7 +71,7 @@ export function LangInLocalStorage(
         defaultName: lang.defaultName,
         hash: lang.hash,
         dicts: {
-          ...(lang.hash === content?.hash ? content?.dicts : {}),
+          ...(lang.hash && lang.hash === content?.hash ? content?.dicts : {}),
           [lang.name]: lang.dict,
         },
       })
