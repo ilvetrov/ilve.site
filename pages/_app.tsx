@@ -1,16 +1,12 @@
 /* eslint-disable no-eval */
 import App, { AppProps, AppContext, AppInitialProps } from 'next/app'
 import Head from 'next/head'
-import { useMemo } from 'react'
 import '~/assets/scss/globals.scss'
 import { nonNullable } from '~/core/nonNullable'
 import { NextPageWithLayout } from '~/interfaces/App.interface'
 import { LangContext } from '~/langs/Context'
-import {
-  LangInLocalStorage,
-  LangsInLocalStorage,
-} from '~/langs/LangsInLocalStorage'
 import { SavedLang } from '~/langs/SavedLang'
+import { useSavingLang } from '~/langs/useSavingLang'
 import DefaultLayout from '~/layouts/DefaultLayout'
 import type { ILang } from './api/lang'
 
@@ -27,11 +23,7 @@ export function CustomApp({
 }: AppPropsWithLayout & Props) {
   const PageLayout = Component.layout || DefaultLayout
 
-  useMemo(() => {
-    if (typeof window !== 'undefined') {
-      LangInLocalStorage(LangsInLocalStorage(), lang.name).write(lang)
-    }
-  }, [lang])
+  useSavingLang(lang)
 
   return (
     <LangContext.Provider value={lang}>

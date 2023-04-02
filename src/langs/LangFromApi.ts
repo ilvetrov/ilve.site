@@ -1,7 +1,7 @@
 import {
   optionalUrlParams,
   urlParamsWithQuestionMark,
-} from '~/core/OptionalUrlParams'
+} from '~/core/optionalUrlParams'
 import type { ILang } from '@root/pages/api/lang'
 
 export interface ILangFromApi {
