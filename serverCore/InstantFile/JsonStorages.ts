@@ -1,4 +1,8 @@
-import { ArrayFromObject, FilterObject, MapObject } from './ArrayFromObject'
+import {
+  ArrayFromObject,
+  FilterObject,
+  MapObject,
+} from '~/core/ArrayFromObject'
 import { Cached } from './Cached'
 import { ErrorsToUndefined } from './ErrorsToUndefined'
 import { FileNamesWithoutExt } from './FileNamesWithoutExt'

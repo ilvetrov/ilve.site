@@ -1,15 +1,22 @@
 import { LangFromApi } from './LangFromApi'
-import { LangInLocalStorage, LangsInLocalStorage } from './LangsInLocalStorage'
+import { LangsInLocalStorage } from './LangsInStorage/LangsInLocalStorage'
+import { ILangsInStorage } from './LangsInStorage/LangsInStorage'
+import {
+  IOneLangInStorage,
+  OneLangInStorage,
+} from './LangsInStorage/OneLangInStorage'
 import type { ILang } from '@root/pages/api/lang'
 
 export interface ISavedLang {
   content(): Promise<ILang>
 }
 
-export function SavedLang(name?: string): ISavedLang {
-  const langs = LangsInLocalStorage()
-  const lang = LangInLocalStorage(langs, name)
-
+export function SavedLangOrFromApi(
+  name?: string,
+  langs: ILangsInStorage = LangsInLocalStorage(),
+  lang: IOneLangInStorage = OneLangInStorage(langs, name),
+  abortSignal?: AbortSignal,
+): ISavedLang {
   return {
     async content() {
       try {
@@ -22,7 +29,11 @@ export function SavedLang(name?: string): ISavedLang {
         //
       }
 
-      const fromApi = await LangFromApi(name, langs.content()?.hash).content()
+      const fromApi = await LangFromApi(
+        name,
+        langs.content()?.hash,
+        abortSignal,
+      ).content()
 
       lang.write(fromApi)
 

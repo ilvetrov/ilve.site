@@ -1,14 +1,20 @@
-import { useMemo } from 'react'
-import { isClient, onlyOnClient } from '~/core/onlyOnClient'
-import { LangInLocalStorage, LangsInLocalStorage } from './LangsInLocalStorage'
+import { useEffect } from 'react'
+import { IOnlyOnClient } from '~/core/onlyOnClient'
+import { ILangsInStorage } from './LangsInStorage/LangsInStorage'
+import { OneLangInStorage } from './LangsInStorage/OneLangInStorage'
 import type { ILang } from '@root/pages/api/lang'
 
-export function useSavingLang(lang: ILang) {
-  const langsInLocalStorage = useMemo(onlyOnClient(LangsInLocalStorage), [])
+export function useSavingLang(
+  lang: ILang,
+  langs: IOnlyOnClient<ILangsInStorage>,
+) {
+  useEffect(() => {
+    const currentLangs = langs.value()
 
-  useMemo(() => {
-    if (isClient(langsInLocalStorage)) {
-      LangInLocalStorage(langsInLocalStorage, lang.name).write(lang)
+    if (typeof currentLangs === 'undefined') {
+      return
     }
+
+    OneLangInStorage(currentLangs, lang.name).write(lang)
   }, [lang])
 }

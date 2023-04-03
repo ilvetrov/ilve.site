@@ -5,13 +5,14 @@ import type { ILang } from '@root/pages/api/lang'
 
 export interface Lang {
   lang: ILang['name']
+  defaultLang: ILang['defaultName']
   langs: ILang['names']
   dict: ILang['dict']
   nextLang: string
 }
 
 export default function useLang(): Lang {
-  const { dict, name, names } = useContext(LangContext)
+  const { dict, name, names, defaultName } = useContext(LangContext)
   const nextLang = useMemo(() => {
     const index = names.indexOf(name)
     const nextIndex = index + 1 >= names.length ? 0 : index + 1
@@ -21,6 +22,7 @@ export default function useLang(): Lang {
 
   return {
     lang: name,
+    defaultLang: defaultName,
     langs: names,
     dict,
     nextLang,

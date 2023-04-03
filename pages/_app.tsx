@@ -1,11 +1,16 @@
 /* eslint-disable no-eval */
 import App, { AppProps, AppContext, AppInitialProps } from 'next/app'
 import Head from 'next/head'
+import { useMemo } from 'react'
 import '~/assets/scss/globals.scss'
 import { nonNullable } from '~/core/nonNullable'
+import { onlyOnClient } from '~/core/onlyOnClient'
 import { NextPageWithLayout } from '~/interfaces/App.interface'
 import { LangContext } from '~/langs/Context'
-import { SavedLang } from '~/langs/SavedLang'
+import { LangsInLocalStorage } from '~/langs/LangsInStorage/LangsInLocalStorage'
+import { LangsWithoutOldWithOldHash } from '~/langs/LangsInStorage/WithoutOldWithOldHash'
+import { SavedLangOrFromApi } from '~/langs/SavedLang'
+import { usePreloadingLangs } from '~/langs/usePreloadingLangs'
 import { useSavingLang } from '~/langs/useSavingLang'
 import DefaultLayout from '~/layouts/DefaultLayout'
 import type { ILang } from './api/lang'
@@ -23,12 +28,24 @@ export function CustomApp({
 }: AppPropsWithLayout & Props) {
   const PageLayout = Component.layout || DefaultLayout
 
-  useSavingLang(lang)
+  useSavingLang(
+    lang,
+    useMemo(
+      () =>
+        onlyOnClient(() => LangsWithoutOldWithOldHash(LangsInLocalStorage())),
+      [],
+    ),
+  )
+  usePreloadingLangs(lang)
 
   return (
     <LangContext.Provider value={lang}>
       <PageLayout>
         <Head>
+          <title>{lang.dict.site_title}</title>
+          <meta name="description" content={lang.dict.site_descr} />
+          <meta name="viewport" content="width=device-width, initial-scale=1" />
+          <link rel="icon" href="/favicon.ico" />
           <link
             rel="preload"
             as="font"
@@ -67,7 +84,7 @@ CustomApp.getInitialProps = async (
 
     lang = Lang(name)
   } else {
-    lang = await SavedLang(name).content()
+    lang = await SavedLangOrFromApi(name).content()
   }
 
   return { ...initialProps, lang }

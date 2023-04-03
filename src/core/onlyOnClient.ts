@@ -1,17 +1,17 @@
 const isServer = typeof window === 'undefined'
 
-export function onlyOnClient<T>(value: () => T): () => T | undefined {
-  return () => {
-    if (isServer) {
-      return undefined
-    }
-
-    return value()
-  }
+export interface IOnlyOnClient<T> {
+  value: () => T | undefined
 }
 
-export function isClient<T>(
-  definedOnClient: T | undefined,
-): definedOnClient is T {
-  return !isServer
+export function onlyOnClient<T>(value: () => T): IOnlyOnClient<T> {
+  return {
+    value() {
+      if (isServer) {
+        return undefined
+      }
+
+      return value()
+    },
+  }
 }
