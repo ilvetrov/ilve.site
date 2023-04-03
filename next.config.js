@@ -33,6 +33,9 @@ const nextConfig = {
 
     return config
   },
+  sassOptions: {
+    additionalData: '@import "~/src/assets/scss/scss-only/index.scss";',
+  },
 }
 
 module.exports = nextConfig
