@@ -1,0 +1,8 @@
+.logo {
+  height: rem(23px);
+  width: auto;
+
+  > path {
+    fill: var(--font-color-default-accent);
+  }
+}

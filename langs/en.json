@@ -1,3 +1,18 @@
 {
-  "ilia_vetrov": "Ilia Vetrov"
+  "lang_name": "English",
+
+  "ilia_vetrov": "Ilia Vetrov",
+  "site_title": "Ilia Vetrov - React Front-End Developer",
+  "site_descr": "Making the Front-End Better. Projects, contacts and videos.",
+  "home_title": "Making the<br>Front-End Better",
+  "home_video": [
+    {
+      "src": "/video/home-video-en.webm",
+      "type": "video/webm"
+    },
+    {
+      "src": "/video/home-video-en.mp4",
+      "type": "video/mp4"
+    }
+  ]
 }

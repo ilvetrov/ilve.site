@@ -11,6 +11,8 @@ export interface ISavedLang {
   content(): Promise<ILang>
 }
 
+const isProduction = process.env.NODE_ENV !== 'development'
+
 export function SavedLangOrFromApi(
   name?: string,
   langs: ILangsInStorage = LangsInLocalStorage(),
@@ -22,7 +24,7 @@ export function SavedLangOrFromApi(
       try {
         const langInLocalStorage = lang.content()
 
-        if (langInLocalStorage) {
+        if (langInLocalStorage && isProduction) {
           return langInLocalStorage
         }
       } catch (error) {

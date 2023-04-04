@@ -1,0 +1,31 @@
+.header {
+  position: relative;
+
+  &__content {
+    position: relative;
+    padding-top: rem(44px);
+  }
+
+  &__homeLink {
+    display: flex;
+    justify-content: center;
+  }
+
+  &__langSwitcher {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+}
+
+.homeLink {
+  &__line {
+    display: flex;
+    justify-content: center;
+    margin-top: rem(12px);
+
+    &:first-child {
+      margin-top: 0;
+    }
+  }
+}

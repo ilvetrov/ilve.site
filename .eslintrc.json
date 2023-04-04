@@ -105,7 +105,9 @@
     "react/destructuring-assignment": "off",
     "no-return-assign": ["error", "except-parens"],
     "@typescript-eslint/no-explicit-any": ["error", { "ignoreRestArgs": true }],
-    "react/prop-types": "off"
+    "react/prop-types": "off",
+    "jsx-a11y/media-has-caption": "off",
+    "@typescript-eslint/no-use-before-define": "off"
   },
   "overrides": [
     {

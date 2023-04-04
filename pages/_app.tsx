@@ -1,7 +1,7 @@
-/* eslint-disable no-eval */
 import App, { AppProps, AppContext, AppInitialProps } from 'next/app'
 import Head from 'next/head'
 import { useMemo } from 'react'
+import langsConfig from '@root/langs.config'
 import '~/assets/scss/globals.scss'
 import { nonNullable } from '~/core/nonNullable'
 import { onlyOnClient } from '~/core/onlyOnClient'
@@ -72,10 +72,7 @@ CustomApp.getInitialProps = async (
 ): Promise<Props & AppInitialProps> => {
   const initialProps = await App.getInitialProps(context)
 
-  const name = nonNullable(
-    context.ctx.locale,
-    'context.ctx.locale is undefined',
-  )
+  const name = context.ctx.locale ?? nonNullable(langsConfig?.defaultLocale)
 
   let lang: ILang
 

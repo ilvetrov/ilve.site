@@ -1,0 +1,14 @@
+@use 'sass:math';
+
+@function remove-unit($value) {
+  @return math.div($value, ($value * 0 + 1));
+}
+
+@function round-to($value, $to: 2) {
+  @return math.div(math.round($value * math.pow(10, $to)), math.pow(10, $to));
+}
+
+@function rem($px) {
+  @return round-to(math.div(remove-unit($px), remove-unit($base-font-size))) *
+    1rem;
+}

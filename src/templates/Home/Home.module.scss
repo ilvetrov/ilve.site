@@ -1,0 +1,14 @@
+.homePage {
+  overflow: hidden;
+  min-height: 100vh;
+
+  &__title {
+    margin-top: rem(39px);
+    display: flex;
+    justify-content: center;
+  }
+  &__video {
+    width: rem(240px);
+    height: rem(240px);
+  }
+}

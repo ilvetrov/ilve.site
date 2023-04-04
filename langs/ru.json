@@ -1,3 +1,18 @@
 {
-  "ilia_vetrov": "Илья Ветров"
+  "lang_name": "Русский",
+
+  "ilia_vetrov": "Илья Ветров",
+  "site_title": "Илья Ветров - React Front-End Разработчик",
+  "site_descr": "Делая Front-End лучше. Проекты, контакты и видео.",
+  "home_title": "Делая наш<br>Front-End лучше",
+  "home_video": [
+    {
+      "src": "/video/home-video-ru.webm",
+      "type": "video/webm"
+    },
+    {
+      "src": "/video/home-video-ru.mp4",
+      "type": "video/mp4"
+    }
+  ]
 }

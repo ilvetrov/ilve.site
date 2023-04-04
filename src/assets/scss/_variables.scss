@@ -1,0 +1,16 @@
+// Do not use for styling elements.
+// Technical variables.
+:root {
+  --base-font-size: #{$base-font-size};
+}
+
+// Use for styling elements.
+:root {
+  --font-color-default: #fff;
+  --font-color-default-accent: #fff;
+  --font-color-link: #80b3ff;
+  --font-color-focus: #164283;
+
+  --background-level-1: #1a2a38;
+  --background-level-2: #253746;
+}

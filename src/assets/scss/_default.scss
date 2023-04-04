@@ -1,5 +1,5 @@
 html {
-  font-size: 16px;
+  font-size: var(--base-font-size);
 }
 
 body {
@@ -26,6 +26,16 @@ a {
   text-decoration: none;
   color: inherit;
   font-weight: 400;
+
+  &:focus {
+    outline: none;
+  }
+  &:active {
+    outline: none;
+  }
+  &:focus-visible {
+    outline: 2px solid var(--font-color-focus);
+  }
 }
 
 button {

@@ -1,0 +1,8 @@
+.descr {
+  height: rem(19px);
+  width: auto;
+
+  > path {
+    fill: var(--font-color-default-accent);
+  }
+}
