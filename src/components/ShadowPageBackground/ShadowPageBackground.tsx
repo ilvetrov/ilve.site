@@ -22,7 +22,7 @@ export default function ShadowPageBackground({
         )}
         onClick={() => setIsActive(false)}
       ></div>
-      <div className={styles.content}>{children}</div>
+      {children}
     </>
   )
 }
