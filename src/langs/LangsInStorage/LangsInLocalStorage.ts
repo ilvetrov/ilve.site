@@ -1,5 +1,8 @@
+import { cachedOnceReplaceable } from '~/core/cachedOnce'
 import { nonNullable } from '~/core/nonNullable'
 import { ILangsInStorage } from './LangsInStorage'
+
+const parsedJSON = cachedOnceReplaceable((json: string) => JSON.parse(json))
 
 export function LangsInLocalStorage(
   key = '__HASHED_LANGUAGES_STORAGE__',
@@ -7,13 +10,17 @@ export function LangsInLocalStorage(
   return {
     content() {
       try {
-        return JSON.parse(nonNullable(localStorage.getItem(key)))
+        return parsedJSON(nonNullable(localStorage.getItem(key)))
       } catch (_error) {
         return undefined
       }
     },
     write(langs) {
-      localStorage.setItem(key, JSON.stringify(langs))
+      const langsAsString = JSON.stringify(langs)
+
+      localStorage.setItem(key, langsAsString)
+
+      parsedJSON.replace(langs, langsAsString)
     },
     clear() {
       localStorage.removeItem(key)

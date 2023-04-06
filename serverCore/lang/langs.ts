@@ -1,7 +1,7 @@
 import langsConfig from '@root/langs.config'
 import { nonNullable } from '~/core/nonNullable'
 import { decoratorOnlyOnProduction } from '~/core/onlyOnProduction'
-import { CachedOnce } from '../../src/core/cachedOnce'
+import { cachedOnce } from '../../src/core/cachedOnce'
 import { AutoUpdatingCache } from '../InstantFile/AutoUpdatingCache'
 import { insecureHash } from '../InstantFile/InsecureHash'
 import { JsonStorages } from '../InstantFile/JsonStorages'
@@ -13,7 +13,7 @@ export const langs = decoratorOnlyOnProduction(
   JsonStorages<LangDict>('./langs'),
 )
 
-const cachedHash = CachedOnce(insecureHash)
+const cachedHash = cachedOnce(insecureHash)
 
 export const langsHash = () => cachedHash(JSON.stringify(langs.content()))
 
