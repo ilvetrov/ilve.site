@@ -107,7 +107,8 @@
     "@typescript-eslint/no-explicit-any": ["error", { "ignoreRestArgs": true }],
     "react/prop-types": "off",
     "jsx-a11y/media-has-caption": "off",
-    "@typescript-eslint/no-use-before-define": "off"
+    "@typescript-eslint/no-use-before-define": "off",
+    "no-void": "off"
   },
   "overrides": [
     {

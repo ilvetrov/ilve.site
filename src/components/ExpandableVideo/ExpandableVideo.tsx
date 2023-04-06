@@ -1,15 +1,19 @@
 import clsx from 'clsx'
 import {
   CSSProperties,
+  Dispatch,
   memo,
+  SetStateAction,
   useCallback,
   useEffect,
-  useMemo,
   useRef,
   useState,
 } from 'react'
+import { roundTo } from '~/core/roundTo'
 import throttle from '~/core/throttle'
+import useBlockScroll from '~/hooks/useBlockScroll'
 import useMemoPlusState from '~/hooks/useMemoPlusState'
+import useParentState from '~/hooks/useParentState'
 import remountOnChange from '../RemountOnChange/RemountOnChange'
 import VideoPlayer, { IVideoSrc } from '../VideoPlayer/VideoPlayer'
 import styles from './ExpandableVideo.module.scss'
@@ -48,9 +52,9 @@ function expandedCoordsOfVideo(
   const expandedTopOffset = (needTopOffset - onPageCoords.y) / expandedScale
 
   return {
-    scale: expandedScale,
-    leftOffset: expandedLeftOffset,
-    topOffset: expandedTopOffset,
+    scale: roundTo(expandedScale, 2),
+    leftOffset: roundTo(expandedLeftOffset, 2),
+    topOffset: roundTo(expandedTopOffset, 2),
   }
 }
 
@@ -60,13 +64,23 @@ const defaultCoords: ExpandedCoordsOfVideo = {
   topOffset: 0,
 }
 
-function ExpandableVideo(props: { src: IVideoSrc[] }) {
+function ExpandableVideo(props: {
+  src: IVideoSrc[]
+  isActive?: boolean
+  setIsActive?: Dispatch<SetStateAction<boolean>>
+}) {
   const video = useRef<HTMLVideoElement>(null)
   const videoOnPage = useRef<HTMLDivElement>(null)
 
-  const [isVideoRun, setIsVideoRun] = useState(false)
+  const [videoIsRunning, setVideoIsRunning] = useParentState(
+    props.isActive,
+    props.setIsActive,
+    false,
+  )
 
   const [isExpanded, setIsExpanded] = useState(false)
+
+  useBlockScroll(isExpanded)
 
   const onStart = useCallback(() => setIsExpanded(true), [])
   const onStop = useCallback(() => setIsExpanded(false), [])
@@ -110,7 +124,8 @@ function ExpandableVideo(props: { src: IVideoSrc[] }) {
           src={props.src}
           onStart={onStart}
           onStop={onStop}
-          activeState={useMemo(() => [isVideoRun, setIsVideoRun], [isVideoRun])}
+          isActive={videoIsRunning}
+          setIsActive={setVideoIsRunning}
         ></VideoPlayer>
       </div>
     </div>
