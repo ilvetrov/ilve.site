@@ -1,7 +1,7 @@
 import langsConfig from '@root/langs.config'
 import { nonNullable } from '~/core/nonNullable'
 import { decoratorOnlyOnProduction } from '~/core/onlyOnProduction'
-import { CachedOnce } from '../CachedOnce'
+import { CachedOnce } from '../../src/core/cachedOnce'
 import { AutoUpdatingCache } from '../InstantFile/AutoUpdatingCache'
 import { insecureHash } from '../InstantFile/InsecureHash'
 import { JsonStorages } from '../InstantFile/JsonStorages'
