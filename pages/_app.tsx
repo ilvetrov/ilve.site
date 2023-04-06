@@ -3,6 +3,7 @@ import Head from 'next/head'
 import { useMemo } from 'react'
 import langsConfig from '@root/langs.config'
 import '~/assets/scss/globals.scss'
+import TrueVW from '~/components/TrueSizes/TrueVW'
 import { nonNullable } from '~/core/nonNullable'
 import { onlyOnClient } from '~/core/onlyOnClient'
 import { NextPageWithLayout } from '~/interfaces/App.interface'
@@ -61,6 +62,7 @@ export function CustomApp({
             crossOrigin="anonymous"
           />
         </Head>
+        <TrueVW></TrueVW>
         <Component {...pageProps} />
       </PageLayout>
     </LangContext.Provider>

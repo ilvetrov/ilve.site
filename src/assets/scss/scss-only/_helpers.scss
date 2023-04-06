@@ -12,3 +12,42 @@
   @return round-to(math.div(remove-unit($px), remove-unit($base-font-size))) *
     1rem;
 }
+
+@mixin variable-from-vw($css-name, $number, $from-window-width) {
+  --#{$css-name}: #{round-to(
+      math.div(remove-unit($number), $from-window-width) * 100,
+      3
+    ) * 1vw};
+
+  --#{$css-name}: calc(
+    #{round-to(math.div($number, $from-window-width) * 100, 3)} * var(--true-window-width, #{math.div(
+            $from-window-width,
+            100
+          )})
+  );
+}
+
+@mixin resizable-variable(
+  $css-name,
+  $number,
+  $min-window-width,
+  $max-window-width
+) {
+  --#{$css-name}: #{$number};
+
+  @media (max-width: #{remove-unit($min-window-width) - 1 * 1px}) {
+    @include variable-from-vw(
+      base-font-size,
+      $base-font-size,
+      remove-unit($min-window-width)
+    );
+  }
+
+  @media (min-width: #{remove-unit($max-window-width) + 1 * 1px}) {
+    @include variable-from-vw(
+      base-font-size,
+      $base-font-size,
+      remove-unit($max-window-width)
+    );
+  }
+}

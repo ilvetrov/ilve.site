@@ -1,7 +1,7 @@
 // Do not use for styling elements.
 // Technical variables.
 :root {
-  --base-font-size: #{$base-font-size};
+  @include resizable-variable(base-font-size, $base-font-size, 360, 1920);
 }
 
 // Use for styling elements.
