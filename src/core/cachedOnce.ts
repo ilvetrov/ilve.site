@@ -1,11 +1,11 @@
 export function cachedOnce<T extends (...args: any[]) => unknown>(
   origin: T,
 ): T {
-  let lastArgs: string | undefined
+  let lastArgs: unknown | undefined
   let cached: ReturnType<T> | undefined
 
   return ((...args) => {
-    const currentArgs = getArgsString(...args)
+    const currentArgs = getArgsValue(...args)
 
     if (lastArgs && cached && lastArgs === currentArgs) {
       return cached
@@ -17,10 +17,16 @@ export function cachedOnce<T extends (...args: any[]) => unknown>(
   }) as T
 }
 
-function getArgsString(...args: any[]): string {
-  return args.length === 1 && typeof args[0] !== 'object'
-    ? args[0]
-    : JSON.stringify(args)
+function getArgsValue(...args: any[]): unknown {
+  if (args.length === 0) {
+    return ''
+  }
+
+  if (args.length === 1 && typeof args[0] !== 'object') {
+    return args[0]
+  }
+
+  return JSON.stringify(args)
 }
 
 type CachedOriginReplaceable<T extends (...args: any[]) => unknown> = T & {
@@ -30,11 +36,11 @@ type CachedOriginReplaceable<T extends (...args: any[]) => unknown> = T & {
 export function cachedOnceReplaceable<T extends (...args: any[]) => unknown>(
   origin: T,
 ): CachedOriginReplaceable<T> {
-  let lastArgs: string | undefined
+  let lastArgs: unknown | undefined
   let cached: ReturnType<T> | undefined
 
   const cachedOrigin = ((...args) => {
-    const currentArgs = getArgsString(...args)
+    const currentArgs = getArgsValue(...args)
 
     if (lastArgs && cached && lastArgs === currentArgs) {
       return cached
@@ -46,7 +52,7 @@ export function cachedOnceReplaceable<T extends (...args: any[]) => unknown>(
   }) as CachedOriginReplaceable<T>
 
   cachedOrigin.replace = (newCache, ...args) => {
-    const currentArgs = getArgsString(...args)
+    const currentArgs = getArgsValue(...args)
 
     if (lastArgs === undefined && cached === undefined) {
       lastArgs = currentArgs

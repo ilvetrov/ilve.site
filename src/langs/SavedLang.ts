@@ -5,7 +5,7 @@ import {
   IOneLangInStorage,
   OneLangInStorage,
 } from './LangsInStorage/OneLangInStorage'
-import type { ILang } from '@root/pages/api/lang'
+import type { ILang } from '@root/serverCore/lang/langs'
 
 export interface ISavedLang {
   content(): Promise<ILang>

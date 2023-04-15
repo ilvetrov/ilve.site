@@ -1,4 +1,4 @@
-type AfterPromise<T> = {
+export type AfterPromise<T> = {
   value: T
   resolved: boolean
 }
@@ -22,7 +22,7 @@ export function afterPromise<T>(
   }
 
   return () => {
-    if (status.value === undefined && defaultValue) {
+    if (!status.resolved && defaultValue) {
       status.value = defaultValue()
       status.resolved = true
     } else {

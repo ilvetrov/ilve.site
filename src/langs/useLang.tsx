@@ -1,7 +1,7 @@
 import { useContext, useMemo } from 'react'
 import { nonNullable } from '~/core/nonNullable'
 import { LangContext } from './Context'
-import type { ILang } from '@root/pages/api/lang'
+import type { ILang } from '@root/serverCore/lang/langs'
 
 export interface Lang {
   lang: ILang['name']

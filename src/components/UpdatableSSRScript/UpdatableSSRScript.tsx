@@ -5,14 +5,17 @@
 import { memo, useCallback, useEffect, useId, useMemo, useRef } from 'react'
 import { nonNullable } from '~/core/nonNullable'
 
-type Data = {
+export type ScriptContextData = {
   place: 'react' | 'page'
   element: HTMLElement
 }
 
 type Destroy = () => void
 
-type UpdatableCallback<D> = (data: Data, advancedData: D) => Destroy | void
+export type UpdatableCallback<D> = (
+  data: ScriptContextData,
+  advancedData: D,
+) => Destroy | void
 
 // Just random string
 const destroyersKey = 'destroyersrevmdkgurmvdwvgoeivme'
@@ -41,12 +44,12 @@ function UpdatableSSRScript<D>({
   const id = useId()
   const scriptRef = useRef<HTMLScriptElement>(null)
 
-  const dataInReact: () => Data = useCallback(
+  const dataInReact: () => ScriptContextData = useCallback(
     () =>
       ({
         place: 'react',
         element: nonNullable(scriptRef.current),
-      } satisfies Data),
+      } satisfies ScriptContextData),
     [],
   )
 
@@ -62,7 +65,7 @@ function UpdatableSSRScript<D>({
     return callback(dataInReact(), advancedData)
   }, [callback, advancedData])
 
-  function dataOnPage(): Data {
+  function dataOnPage(): ScriptContextData {
     return {
       place: 'page',
       element: document.currentScript as HTMLElement,

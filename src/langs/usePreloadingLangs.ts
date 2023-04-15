@@ -4,7 +4,7 @@ import { LangsInLocalStorage } from './LangsInStorage/LangsInLocalStorage'
 import { OneLangInStorage } from './LangsInStorage/OneLangInStorage'
 import { OnlyLangWithOldHash } from './LangsInStorage/OnlyLangWithOldHash'
 import { SavedLangOrFromApi } from './SavedLang'
-import type { ILang } from '@root/pages/api/lang'
+import type { ILang } from '@root/serverCore/lang/langs'
 
 /** Very simple preloading. I am ignoring adding new languages for now */
 let preloadingFinished = false

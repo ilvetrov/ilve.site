@@ -9,21 +9,11 @@ import {
 } from 'superstruct'
 import {
   defaultLang,
-  LangDict,
+  ILang,
+  Lang,
   langNames,
-  langs,
-  langsHash,
 } from '@root/serverCore/lang/langs'
-import { nonNullable } from '~/core/nonNullable'
 import type { NextApiRequest, NextApiResponse } from 'next'
-
-export type ILang = {
-  name: string
-  defaultName: string
-  names: string[]
-  dict: LangDict
-  hash: string
-}
 
 export type Success = ILang
 
@@ -44,14 +34,6 @@ export const LangName = define<string>('LangName', (value) => {
 const Query = object({
   name: defaulted(LangName, defaultLang),
   hash: optional(string()),
-})
-
-export const Lang: (name: string) => ILang = (name) => ({
-  name,
-  names: langNames(),
-  defaultName: defaultLang(),
-  dict: nonNullable(langs.content()[name], `Lang "${name}" does not exist`),
-  hash: langsHash(),
 })
 
 export default async function handler(

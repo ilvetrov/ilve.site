@@ -1,0 +1,35 @@
+.bigButton {
+  display: block;
+  width: 100%;
+  background-color: var(--background-level-1);
+  transition: background-color 0.3s;
+  border-radius: $border-radius-6;
+  color: var(--font-color-link);
+  padding-top: rem(32px);
+  padding-bottom: rem(32px);
+  padding-left: rem(22px);
+  padding-right: rem(22px);
+
+  @media (hover: hover) {
+    &:hover {
+      background-color: var(--background-level-1-hover);
+    }
+  }
+
+  &__title + &__text {
+    margin-top: rem(10px);
+  }
+}
+
+.title {
+  font-size: rem(20px);
+  font-weight: 700;
+  line-height: 1.44;
+  text-align: center;
+}
+
+.text {
+  font-size: rem(16px);
+  line-height: 1.6;
+  text-align: center;
+}

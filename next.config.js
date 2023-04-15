@@ -1,10 +1,17 @@
+/* eslint-disable no-param-reassign */
 const langs = require('./langs.config')
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
   i18n: langs,
-  webpack(config) {
+  webpack(config, { isServer }) {
+    config.resolve.alias['@serverCore'] = 'serverCore'
+
+    if (!isServer) {
+      config.resolve.alias['@serverCore'] = false
+    }
+
     config.module.rules.push({
       test: /\.svg$/i,
       issuer: /\.[jt]sx?$/,
@@ -33,6 +40,15 @@ const nextConfig = {
   },
   sassOptions: {
     additionalData: '@import "~/src/assets/scss/scss-only/index.scss";',
+  },
+  async redirects() {
+    return [
+      {
+        source: '/email',
+        destination: 'mailto:contact@ilve.site',
+        permanent: false,
+      },
+    ]
   },
 }
 

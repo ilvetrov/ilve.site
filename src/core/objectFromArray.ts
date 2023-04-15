@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-export function ArrayFromObject<T extends ReadonlyArray<string>>(
+export function ObjectFromArray<T extends ReadonlyArray<string>>(
   array: () => T,
 ): () => Record<T[number], undefined> {
   return () => {
@@ -11,7 +11,7 @@ export function ArrayFromObject<T extends ReadonlyArray<string>>(
   }
 }
 
-export function MapObject<
+export function MappedObject<
   T extends Record<string, unknown>,
   Return = T[keyof T],
 >(
@@ -30,7 +30,7 @@ export function MapObject<
   }
 }
 
-export function FilterObject<
+export function FilteredObject<
   T extends Record<string, unknown>,
   R extends Record<string, unknown>,
 >(
@@ -50,7 +50,7 @@ export function FilterObject<
   }
 }
 
-export function OmitObject<
+export function OmittedObject<
   T extends Record<string, unknown>,
   Removed extends keyof T,
 >(origin: () => T, removed: Removed): () => Omit<T, Removed> {

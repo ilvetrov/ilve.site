@@ -9,7 +9,7 @@ body {
   font-weight: 400;
   font-size: 1rem;
   line-height: 1.6;
-  color: #fff;
+  color: var(--font-color-default, #fff);
 }
 
 * {
@@ -41,4 +41,6 @@ a {
 button {
   outline: none;
   border: none;
+  background: none;
+  display: flex;
 }

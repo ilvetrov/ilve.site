@@ -1,0 +1,32 @@
+.bottomMenu {
+  align-self: flex-end;
+  width: 100%;
+  pointer-events: none;
+  max-height: 100vh;
+  display: flex;
+  justify-content: center;
+}
+
+.content {
+  border-radius: $border-radius-6;
+  background-color: var(--background-level-1);
+  padding: rem(48px) rem(32px);
+  pointer-events: auto;
+  overflow: auto;
+  width: 100%;
+  max-width: rem(700px);
+  max-height: 70vh;
+  max-height: calc(80vh - rem(66px));
+  max-height: min(calc(80vh - rem(66px)), 30rem);
+
+  &__title {
+    margin-bottom: rem(42px);
+  }
+}
+
+.title {
+  font-size: rem(24px);
+  text-align: center;
+  font-weight: 700;
+  line-height: 1.44;
+}

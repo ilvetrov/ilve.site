@@ -8,3 +8,19 @@ export function nonNullable<T>(
 
   return value
 }
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function nonNullableFunc<T extends (...args: any[]) => any>(
+  value: T,
+  msg?: string,
+): (...args: Parameters<T>) => Exclude<ReturnType<T>, undefined | null | void> {
+  return (...args: any[]) => {
+    const result = value(...args)
+
+    if (result === undefined || result === null) {
+      throw new TypeError(msg ?? `value is ${result}`)
+    }
+
+    return result
+  }
+}

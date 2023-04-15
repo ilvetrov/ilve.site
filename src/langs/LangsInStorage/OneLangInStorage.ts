@@ -1,5 +1,5 @@
 import { ILangsInStorage } from './LangsInStorage'
-import type { ILang } from '@root/pages/api/lang'
+import type { ILang } from '@root/serverCore/lang/langs'
 
 export interface IOneLangInStorage {
   content(): ILang | undefined

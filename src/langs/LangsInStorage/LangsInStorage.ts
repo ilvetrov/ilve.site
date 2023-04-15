@@ -1,4 +1,4 @@
-import type { ILang } from '@root/pages/api/lang'
+import type { ILang } from '@root/serverCore/lang/langs'
 
 type ILangs = Pick<ILang, 'names' | 'defaultName' | 'hash'> & {
   dicts: Record<string, ILang['dict']>

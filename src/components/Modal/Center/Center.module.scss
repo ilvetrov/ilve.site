@@ -1,0 +1,26 @@
+.wrap {
+  position: absolute;
+  inset: 0;
+  left: rem(14px);
+  right: rem(14px);
+  transform-origin: center;
+  transform: translateY(30%) scale(0.9);
+  opacity: 0;
+  transition: opacity 0.3s, transform 0.3s;
+  overflow: auto;
+  max-height: 100vh;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+
+  &_visible {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.center {
+  flex: 1;
+  display: flex;
+  pointer-events: none;
+}

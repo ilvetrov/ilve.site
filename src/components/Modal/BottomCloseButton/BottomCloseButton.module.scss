@@ -1,0 +1,27 @@
+.closeButtonWrap {
+  padding-top: rem(24px);
+  padding-bottom: rem(24px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  pointer-events: none;
+}
+
+.closeButton {
+  margin: rem(-16px);
+  padding: rem(16px);
+  pointer-events: auto;
+  opacity: 0.7;
+  transition: opacity 0.3s;
+
+  &__icon {
+    width: rem(18px);
+    height: rem(18px);
+  }
+
+  @media (hover: hover) {
+    &:hover {
+      opacity: 1;
+    }
+  }
+}

@@ -1,21 +1,17 @@
-import { nonNullable } from '~/core/nonNullable'
 import useLang from '~/langs/useLang'
-import DescrIconEn from './assets/descr-en.svg'
-import DescrIconRu from './assets/descr-ru.svg'
+import lazySvg, { ImportedSvg } from '../LazySvg/lazySvg'
 import styles from './Descr.module.scss'
 
-const DescrIcons: Record<
-  string,
-  (props: React.SVGProps<SVGSVGElement>) => JSX.Element
-> = {
-  en: DescrIconEn,
-  ru: DescrIconRu,
-}
+const Icon = lazySvg(
+  {
+    en: () => import(`./assets/descr-en.svg`),
+    ru: () => import(`./assets/descr-ru.svg`),
+  } as Record<string, ImportedSvg>,
+  { className: styles.descr },
+)
 
 export default function Descr() {
   const { lang, defaultLang } = useLang()
 
-  const DescrIcon = DescrIcons[lang] ?? nonNullable(DescrIcons[defaultLang])
-
-  return <DescrIcon className={styles.descr}></DescrIcon>
+  return <Icon variant={lang} defaultVariant={defaultLang}></Icon>
 }
