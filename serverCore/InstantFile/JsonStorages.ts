@@ -1,8 +1,8 @@
 import {
-  ArrayFromObject,
-  FilterObject,
-  MapObject,
-} from '~/core/arrayFromObject'
+  ObjectFromArray,
+  FilteredObject,
+  MappedObject,
+} from '~/core/objectFromArray'
 import { Cached } from './Cached'
 import { ErrorsToUndefined } from './ErrorsToUndefined'
 import { FileNamesWithoutExt } from './FileNamesWithoutExt'
@@ -20,9 +20,9 @@ export function JsonStorages<T extends Record<string, unknown>>(
   const CachedInstantFile = Cached(InstantFile)
 
   return {
-    content: FilterObject<Record<string, T | undefined>, Record<string, T>>(
-      MapObject(
-        ArrayFromObject(FileNamesWithoutExt(InstantDir(path).content).content),
+    content: FilteredObject<Record<string, T | undefined>, Record<string, T>>(
+      MappedObject(
+        ObjectFromArray(FileNamesWithoutExt(InstantDir(path).content).content),
         (_value, fileName) =>
           ErrorsToUndefined(
             JsonOnDisk<T>(CachedInstantFile(`${path}/${fileName}.json`))

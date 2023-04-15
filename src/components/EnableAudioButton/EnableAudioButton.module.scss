@@ -1,0 +1,18 @@
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1.2;
+  font-weight: 700;
+  position: relative;
+}
+
+.icon {
+  margin-left: rem(12px);
+  width: rem(14px);
+  height: rem(13px);
+
+  > path {
+    fill: var(--font-color-default);
+  }
+}

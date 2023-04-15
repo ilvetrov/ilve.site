@@ -11,7 +11,7 @@
   transition: opacity 0.3s;
 
   &_active {
-    opacity: 0.5;
+    opacity: var(--opacity, 0.5);
     pointer-events: auto;
   }
 }

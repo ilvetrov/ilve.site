@@ -1,0 +1,15 @@
+.tipButton {
+  display: inline-flex;
+  padding: rem(16px) rem(29px) rem(17px);
+  border-radius: $border-radius-6;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--background-level-2);
+  transition: background-color 0.3s;
+
+  @media (hover: hover) {
+    &:hover {
+      background-color: var(--background-level-2-hover);
+    }
+  }
+}

@@ -1,28 +1,23 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import clsx from 'clsx'
-import { ReactNode } from 'react'
+import { CSSProperties } from 'react'
 import styles from './ShadowPageBackground.module.scss'
 
 export default function ShadowPageBackground({
-  children,
   isActive,
-  setIsActive,
+  close,
+  opacity,
 }: {
-  children: ReactNode
   isActive: boolean
-  setIsActive: (active: boolean) => void
+  close: () => void
+  opacity?: number
 }) {
   return (
-    <>
-      <div
-        className={clsx(
-          styles.background,
-          isActive && styles.background_active,
-        )}
-        onClick={() => setIsActive(false)}
-      ></div>
-      {children}
-    </>
+    <div
+      className={clsx(styles.background, isActive && styles.background_active)}
+      style={{ '--opacity': opacity } as CSSProperties}
+      onClick={close}
+    ></div>
   )
 }

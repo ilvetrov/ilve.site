@@ -1,0 +1,44 @@
+@mixin videoSize {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.videoTipWrap {
+  @include videoSize();
+}
+
+.videoTip {
+  @include videoSize();
+  z-index: $z-index-default;
+  animation: delayed-off-of-z-index 0.3s;
+
+  &_init {
+    animation: none;
+  }
+  &_active {
+    z-index: $z-index-modal;
+    animation: none;
+  }
+}
+
+@keyframes delayed-off-of-z-index {
+  0%,
+  100% {
+    z-index: $z-index-modal;
+  }
+}
+
+.placeholderImage {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  padding: rem(1px);
+  border-radius: rem(9999px);
+}
+
+.video {
+  @include videoSize();
+  z-index: $z-index-modal;
+}

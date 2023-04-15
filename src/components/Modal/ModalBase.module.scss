@@ -1,0 +1,12 @@
+.modalBase {
+  position: fixed;
+  inset: 0;
+  z-index: $z-index-modal;
+  display: none;
+  pointer-events: none;
+
+  &_displayed {
+    display: block;
+    pointer-events: all;
+  }
+}

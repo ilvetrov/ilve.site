@@ -3,8 +3,9 @@
 
   "ilia_vetrov": "Ilia Vetrov",
   "site_title": "Ilia Vetrov - React Front-End Developer",
-  "site_descr": "Making the Front-End Better. Projects, contacts and videos.",
-  "home_title": "Making the<br>Front-End Better",
+  "site_descr": "Making the Front-End better. Projects, contacts and videos.",
+  "home_title": "Making the<br>Front-End better",
+  "enable_audio": "Enable audio",
   "home_video": [
     {
       "src": "/video/home-video-en.webm",
@@ -13,6 +14,36 @@
     {
       "src": "/video/home-video-en.mp4",
       "type": "video/mp4"
+    }
+  ],
+  "contacts": [
+    {
+      "iconHref": "/img/icons/email.svg",
+      "name": "Email",
+      "href": "mailto:contact@ilve.site",
+      "linkText": "contact@ilve.site",
+      "qrHref": "/img/qr/email.svg"
+    },
+    {
+      "iconHref": "/img/icons/whatsapp.svg",
+      "name": "WhatsApp",
+      "href": "https://wa.me/qr/X7QWCXP3ULNLG1",
+      "linkText": "Tap on me. Or scan",
+      "qrHref": "/img/qr/whatsapp.svg"
+    },
+    {
+      "iconHref": "/img/icons/telegram.svg",
+      "name": "Telegram",
+      "href": "https://t.me/ilvetrov",
+      "linkText": "t.me/ilvetrov",
+      "qrHref": "/img/qr/telegram.svg"
+    },
+    {
+      "iconHref": "/img/icons/vk.svg",
+      "name": "VK.com",
+      "href": "https://vk.com/ilvetrov",
+      "linkText": "vk.com/ilvetrov",
+      "qrHref": "/img/qr/vk.svg"
     }
   ]
 }

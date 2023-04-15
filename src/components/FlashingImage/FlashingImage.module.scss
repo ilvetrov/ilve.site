@@ -1,0 +1,20 @@
+.image {
+  transition: opacity 3s;
+  opacity: 0.4;
+
+  &_flashing {
+    animation: flashingOpacity 3s ease-in-out infinite;
+  }
+}
+
+@keyframes flashingOpacity {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.4;
+  }
+  100% {
+    opacity: 1;
+  }
+}

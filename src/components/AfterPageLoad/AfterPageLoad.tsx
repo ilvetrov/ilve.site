@@ -1,20 +1,20 @@
 import { ReactNode, useState, useEffect } from 'react'
 import { afterPageLoad } from '~/core/afterPageLoad'
 
-let pageLoadedCached = false
+let isPageLoadedCached = false
 
-export default function AfterPageLoad(props: { children: () => ReactNode }) {
-  const [pageLoaded, setPageLoaded] = useState(pageLoadedCached)
+export default function AfterPageLoad({ children }: { children: ReactNode }) {
+  const [isPageLoaded, setIsPageLoaded] = useState(isPageLoadedCached)
 
   useEffect(
     afterPageLoad(() => {
-      if (!pageLoaded) {
-        pageLoadedCached = true
-        setPageLoaded(true)
+      if (!isPageLoaded) {
+        isPageLoadedCached = true
+        setIsPageLoaded(true)
       }
     }),
     [],
   )
 
-  return <>{pageLoaded && props.children()}</>
+  return <>{isPageLoaded && children}</>
 }

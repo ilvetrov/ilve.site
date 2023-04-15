@@ -7,11 +7,11 @@ import {
   useEffect,
   useMemo,
 } from 'react'
-import AfterPageLoad from '~/components/AfterPageLoad/AfterPageLoad'
 import { assertsNonNullable } from '~/core/asserts'
 import useCombinedRef from '~/hooks/useCombinedRef'
 import useOnHold from '~/hooks/useOnHold'
 import useParentState from '~/hooks/useParentState'
+import useOnlyIfInViewport from '../OnlyIfInViewport/useOnlyIfInViewport'
 
 export interface IVideoSrc {
   src: string
@@ -22,8 +22,6 @@ const VideoPlayer = forwardRef<
   HTMLVideoElement | null,
   {
     src: IVideoSrc[]
-    onStart?: () => void
-    onStop?: () => void
     isActive?: boolean
     setIsActive?: Dispatch<SetStateAction<boolean>>
   } & Omit<MediaHTMLAttributes<HTMLVideoElement>, 'src'>
@@ -31,8 +29,6 @@ const VideoPlayer = forwardRef<
   (
     {
       src,
-      onStart,
-      onStop,
       isActive: parentIsActive,
       setIsActive: setParentIsActive,
       ...elementProps
@@ -47,27 +43,31 @@ const VideoPlayer = forwardRef<
       false,
     )
 
-    function activate() {
+    const playVideoNow = () =>
+      void (video.current?.paused && video.current.play().catch(() => {}))
+    const pauseVideoNow = () =>
+      void (!video.current?.paused && video.current?.pause())
+
+    function activateNow() {
       if (!video.current) return
 
       video.current.currentTime = 0
-      video.current.play()
-      onStart?.()
+
+      playVideoNow()
     }
 
-    function deactivate() {
+    function deactivateNow() {
       if (!video.current) return
 
       video.current.currentTime = 0
-      video.current.play()
-      onStop?.()
+      playVideoNow()
     }
 
     function onClick() {
       assertsNonNullable(video.current)
 
       if (isActive && video.current.paused) {
-        video.current.play()
+        playVideoNow()
 
         return
       }
@@ -82,9 +82,9 @@ const VideoPlayer = forwardRef<
 
     useEffect(() => {
       if (isActive) {
-        activate()
+        activateNow()
       } else {
-        deactivate()
+        deactivateNow()
       }
     }, [isActive])
 
@@ -93,21 +93,17 @@ const VideoPlayer = forwardRef<
       useMemo(
         () => ({
           onStart() {
-            if (
-              video.current &&
-              !video.current.muted &&
-              !video.current.paused
-            ) {
-              video.current.pause()
+            if (video.current && isActive) {
+              pauseVideoNow()
             }
           },
           onEnd() {
-            if (video.current && !video.current.muted && video.current.paused) {
-              video.current.play()
+            if (video.current && isActive) {
+              playVideoNow()
             }
           },
         }),
-        [],
+        [isActive],
       ),
       [src],
     )
@@ -116,13 +112,25 @@ const VideoPlayer = forwardRef<
 
     const srcKey = useMemo(() => JSON.stringify(src), [src])
 
+    const isInViewport = useOnlyIfInViewport(video, '0%', '0%')
+
+    useEffect(() => {
+      if (isActive) return
+      if (!video.current) return
+
+      if (isInViewport) {
+        playVideoNow()
+      } else {
+        pauseVideoNow()
+      }
+    }, [isInViewport, isActive])
+
     return (
       <video
         key={srcKey}
         ref={video}
         autoPlay
-        // muted={!isActive}
-        muted // for dev
+        muted={!isActive}
         loop={!isActive}
         {...elementProps}
         onClick={(event) => {
@@ -134,17 +142,9 @@ const VideoPlayer = forwardRef<
           elementProps.onEnded?.(event)
         }}
       >
-        <AfterPageLoad>
-          {() =>
-            src.map((oneSrc) => (
-              <source
-                key={oneSrc.src}
-                src={oneSrc.src}
-                type={oneSrc.type}
-              ></source>
-            ))
-          }
-        </AfterPageLoad>
+        {src.map((oneSrc) => (
+          <source key={oneSrc.src} src={oneSrc.src} type={oneSrc.type}></source>
+        ))}
       </video>
     )
   },

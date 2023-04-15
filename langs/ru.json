@@ -4,7 +4,8 @@
   "ilia_vetrov": "Илья Ветров",
   "site_title": "Илья Ветров - React Front-End Разработчик",
   "site_descr": "Делая Front-End лучше. Проекты, контакты и видео.",
-  "home_title": "Делая наш<br>Front-End лучше",
+  "home_title": "Делая весь<br>Front-End лучше",
+  "enable_audio": "Включить звук",
   "home_video": [
     {
       "src": "/video/home-video-ru.webm",
@@ -13,6 +14,36 @@
     {
       "src": "/video/home-video-ru.mp4",
       "type": "video/mp4"
+    }
+  ],
+  "contacts": [
+    {
+      "iconHref": "/img/icons/email.svg",
+      "name": "Email",
+      "href": "mailto:contact@ilve.site",
+      "linkText": "contact@ilve.site",
+      "qrHref": "/img/qr/email.svg"
+    },
+    {
+      "iconHref": "/img/icons/whatsapp.svg",
+      "name": "WhatsApp",
+      "href": "https://wa.me/qr/X7QWCXP3ULNLG1",
+      "linkText": "Нажми / Сканируй",
+      "qrHref": "/img/qr/whatsapp.svg"
+    },
+    {
+      "iconHref": "/img/icons/telegram.svg",
+      "name": "Telegram",
+      "href": "https://t.me/ilvetrov",
+      "linkText": "t.me/ilvetrov",
+      "qrHref": "/img/qr/telegram.svg"
+    },
+    {
+      "iconHref": "/img/icons/vk.svg",
+      "name": "ВКонтакте",
+      "href": "https://vk.com/ilvetrov",
+      "linkText": "vk.com/ilvetrov",
+      "qrHref": "/img/qr/vk.svg"
     }
   ]
 }
