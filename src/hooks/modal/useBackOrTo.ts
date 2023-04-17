@@ -9,34 +9,15 @@ export default function useBackOrTo(
   isActive: boolean,
 ): () => void {
   const isInitPage = useRef(true)
-  const routesHistory = useRef<string[]>([])
-  const lastPage = useRef<string>()
   const lastScroll = useRef<number>()
 
   useEffect(() => {
-    if (
-      !isActive &&
-      router.route !== lastPage.current &&
-      router.route ===
-        routesHistory.current[routesHistory.current.length - 2] &&
-      lastScroll.current
-    ) {
+    if (!isActive && lastScroll.current) {
       window.scrollTo(0, lastScroll.current)
     }
-  }, [router.route, isActive])
 
-  useEffect(() => {
     lastScroll.current = window.scrollY
   }, [isActive])
-
-  useEffect(() => {
-    if (router.route !== lastPage.current) {
-      isInitPage.current = false
-
-      lastPage.current = router.route
-      routesHistory.current.push(router.route)
-    }
-  }, [router.route])
 
   return useEventCallback(() => {
     if (isInitPage.current || history.length <= 2) {
