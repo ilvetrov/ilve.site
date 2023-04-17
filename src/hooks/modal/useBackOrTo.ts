@@ -1,4 +1,3 @@
-/* eslint-disable no-restricted-globals */
 import { NextRouter } from 'next/router'
 import { useEffect, useRef } from 'react'
 import useEventCallback from '../useEventCallback'
@@ -9,6 +8,8 @@ export default function useBackOrTo(
   isActive: boolean,
 ): () => void {
   const isInitPage = useRef(true)
+  const initRoute = useRef(router.route)
+
   const lastScroll = useRef<number>()
 
   useEffect(() => {
@@ -19,8 +20,14 @@ export default function useBackOrTo(
     lastScroll.current = window.scrollY
   }, [isActive])
 
+  useEffect(() => {
+    if (router.route !== initRoute.current) {
+      isInitPage.current = false
+    }
+  }, [router.route])
+
   return useEventCallback(() => {
-    if (isInitPage.current || history.length <= 2) {
+    if (isInitPage.current) {
       router.replace({ pathname }, undefined, { scroll: false })
     } else {
       router.back()
