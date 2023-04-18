@@ -1,5 +1,5 @@
 /* eslint-disable no-param-reassign */
-import { MutableRefObject, useEffect, useRef } from 'react'
+import { MutableRefObject, useEffect } from 'react'
 
 interface IBlocker {
   block(): boolean
@@ -91,16 +91,6 @@ export default function useBlockScroll(
   isBlocking: boolean,
   element?: MutableRefObject<HTMLElement | undefined | null>,
 ) {
-  const destroyed = useRef(false)
-
-  useEffect(() => {
-    destroyed.current = false
-
-    return () => {
-      destroyed.current = true
-    }
-  }, [])
-
   useEffect(() => {
     if (!isBlocking) {
       return undefined
