@@ -2,7 +2,7 @@ import { MutableRefObject, useEffect, useState } from 'react'
 import { nonNullable } from '~/core/nonNullable'
 
 export default function useOnlyIfInViewport(
-  ref: MutableRefObject<HTMLElement | null | undefined>,
+  ref: MutableRefObject<Element | null | undefined>,
   yOffset = '200%',
   xOffset = '50%',
   keep = false,

@@ -11,6 +11,24 @@ export function ObjectFromArray<T extends ReadonlyArray<string>>(
   }
 }
 
+export function ObjectFromArrayByKeys<
+  KeyName extends string,
+  ValueName extends string,
+  Value,
+>(
+  keyName: KeyName,
+  valueName: ValueName,
+  array: ({ [key in KeyName]: string } & { [key in ValueName]: Value })[],
+): Record<string, Value> {
+  const result: Record<string, Value> = {}
+
+  array.forEach((item) => {
+    result[item[keyName]] = item[valueName]
+  })
+
+  return result
+}
+
 export function MappedObject<
   T extends Record<string, unknown>,
   Return = T[keyof T],

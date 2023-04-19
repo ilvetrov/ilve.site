@@ -16,7 +16,7 @@ export default function OnlyInViewport({
   xOffset,
   ...elementProps
 }: {
-  watchRef?: MutableRefObject<HTMLElement | null | undefined>
+  watchRef?: MutableRefObject<Element | null | undefined>
   children: ReactNode
   yOffset?: Offset
   xOffset?: Offset
