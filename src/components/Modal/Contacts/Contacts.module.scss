@@ -5,10 +5,14 @@
   &__item {
     padding-top: rem(21px);
     padding-bottom: rem(21px);
+    display: flex;
+    justify-content: center;
   }
 }
 
 .contact {
+  width: 100%;
+  max-width: rem(270px);
   display: flex;
   flex-direction: column;
   justify-content: center;
