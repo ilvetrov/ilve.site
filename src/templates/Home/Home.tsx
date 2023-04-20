@@ -3,7 +3,6 @@ import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import BigButton from '~/components/BigButton/BigButton'
 import EnableAudioButton from '~/components/EnableAudioButton/EnableAudioButton'
-import Header from '~/components/Header/Header'
 import LazySvg from '~/components/LazySvg/LazySvgComponent'
 import BottomMenu from '~/components/Modal/BottomMenu/BottomMenu'
 import Center from '~/components/Modal/Center/Center'
@@ -33,9 +32,6 @@ export default function Home() {
 
   return (
     <div className={styles.homePage}>
-      <div className={styles.homePage__header}>
-        <Header></Header>
-      </div>
       <div className="container">
         <h1 className={styles.homePage__title}>
           <Title>
