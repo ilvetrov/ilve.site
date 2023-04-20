@@ -32,20 +32,25 @@ export function ObjectFromArrayByKeys<
 export function MappedObject<
   T extends Record<string, unknown>,
   Return = T[keyof T],
+  Deps = undefined,
 >(
   origin: () => T,
-  forEach: (value: T[keyof T], key: keyof T) => Return = (value) =>
+  forEach: (value: T[keyof T], key: keyof T, deps: Deps) => Return = (value) =>
     value as Return,
-): () => Record<keyof T, Return> {
-  return () => {
+) {
+  return ((deps: Deps) => {
     const object = { ...origin() }
 
     Object.keys(object).forEach(
-      (key: keyof T) => (object[key] = forEach(object[key], key) as any),
+      (key: keyof T) => (object[key] = forEach(object[key], key, deps) as any),
     )
 
     return object as Record<keyof T, Return>
-  }
+  }) as undefined extends Deps
+    ? Deps extends undefined
+      ? () => Record<keyof T, Return>
+      : (deps?: Deps) => Record<keyof T, Return>
+    : (deps: Deps) => Record<keyof T, Return>
 }
 
 export function FilteredObject<

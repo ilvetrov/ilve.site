@@ -1,5 +1,6 @@
 import useLang from '~/langs/useLang'
 import lazySvg, { ImportedSvg } from '../LazySvg/lazySvg'
+import HiddenRenders from '../PreservedRenders/HiddenRenders'
 import styles from './Descr.module.scss'
 
 const Icon = lazySvg(
@@ -8,10 +9,15 @@ const Icon = lazySvg(
     ru: () => import(`./assets/descr-ru.svg`),
   } as Record<string, ImportedSvg>,
   { className: styles.descr },
+  true,
 )
 
 export default function Descr() {
   const { lang, defaultLang } = useLang()
 
-  return <Icon variant={lang} defaultVariant={defaultLang}></Icon>
+  return (
+    <HiddenRenders name={lang}>
+      <Icon variant={lang} defaultVariant={defaultLang}></Icon>
+    </HiddenRenders>
+  )
 }

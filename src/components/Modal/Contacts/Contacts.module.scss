@@ -43,7 +43,8 @@
     max-width: rem(150px);
     word-break: break-word;
     line-height: 1.44;
-    color: #c4bfff;
+    color: var(--font-color-link);
+    transition: color $transition-time-animated-color-change;
   }
 }
 

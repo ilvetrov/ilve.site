@@ -31,8 +31,8 @@
 
 .name {
   display: flex;
-  color: var(--font-color-link-accent);
-  transition: color $transition-time-accent-color-change;
+  color: var(--font-color-link);
+  transition: color $transition-time-animated-color-change;
   font-weight: 700;
   font-size: rem(21px);
   line-height: 1.5;
@@ -51,7 +51,7 @@
   color: var(--font-color-link);
   opacity: 0.6;
   line-height: 1.6;
-  transition: opacity 0.2s;
+  transition: opacity 0.2s, color $transition-time-animated-color-change;
 
   @media (hover: hover) {
     &:hover {
@@ -66,8 +66,8 @@
   &__img {
     width: var(--width, rem(100px));
     height: auto;
-    color: var(--font-color-link-accent);
-    transition: color $transition-time-accent-color-change;
+    color: var(--font-color-link);
+    transition: color $transition-time-animated-color-change;
   }
 }
 

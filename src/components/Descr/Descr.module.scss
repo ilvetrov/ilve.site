@@ -1,9 +1,10 @@
 .descr {
+  display: flex;
   height: rem(19px);
   width: auto;
 
   > path {
-    fill: var(--font-color-default-accent);
-    transition: fill $transition-time-accent-color-change;
+    fill: var(--font-color-default-animated);
+    transition: fill $transition-time-animated-color-change;
   }
 }

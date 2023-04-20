@@ -1,0 +1,14 @@
+.wrapper {
+  position: relative;
+}
+
+.hidden {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  pointer-events: none;
+  z-index: -1;
+  user-select: none;
+  transform: scale(0);
+}
