@@ -17,7 +17,7 @@ import { LangsWithoutOldWithOldHash } from '~/langs/LangsInStorage/WithoutOldWit
 import { SavedLangOrFromApi } from '~/langs/SavedLang'
 import { usePreloadingLangs } from '~/langs/usePreloadingLangs'
 import { useSavingLang } from '~/langs/useSavingLang'
-import DefaultLayout from '~/layouts/DefaultLayout'
+import DefaultLayout from '~/layouts/DefaultLayout/DefaultLayout'
 import type { ILang } from '@root/serverCore/lang/langs'
 
 type Props = { lang: ILang }

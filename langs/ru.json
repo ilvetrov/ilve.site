@@ -45,5 +45,118 @@
       "linkText": "vk.com/ilvetrov",
       "qrHref": "/img/qr/vk.svg"
     }
+  ],
+  "projects": [
+    {
+      "icon": {
+        "src": "/img/logos/laziest-image.svg",
+        "width": "112",
+        "height": "96",
+        "finalWidth": "7rem"
+      },
+      "descr": "Полный контроль над загрузкой изображений в JS",
+      "siteName": "github.com",
+      "link": "https://github.com/ilvetrov/laziest-image",
+      "video": [
+        {
+          "src": "/video/home-video-ru.mp4",
+          "type": "video/mp4"
+        },
+        {
+          "src": "/video/home-video-ru.webm",
+          "type": "video/webm"
+        }
+      ],
+      "videoHint": "О проекте"
+    },
+    {
+      "icon": {
+        "src": "/img/logos/youtube.svg",
+        "width": "36",
+        "height": "28",
+        "finalWidth": "3.1rem"
+      },
+      "name": "Принцип Разделения ответственности в CSS",
+      "descr": "Как писать CSS без сайд-эффектов",
+      "siteName": "youtube.com",
+      "link": "https://youtu.be/XekZ8Hjx3o4"
+    },
+    {
+      "icon": {
+        "src": "/img/logos/reactive-ref.svg",
+        "width": "59",
+        "height": "13",
+        "finalWidth": "12rem"
+      },
+      "descr": "Реактивная работа с рефами в React",
+      "siteName": "github.com",
+      "link": "https://github.com/ilvetrov/reactive-ref"
+    },
+    {
+      "icon": {
+        "src": "/img/logos/local-sync-state.svg",
+        "width": "42",
+        "height": "44",
+        "finalWidth": "7rem"
+      },
+      "descr": "Синхронный стейт в одном объекте",
+      "siteName": "github.com",
+      "link": "https://github.com/ilvetrov/local-sync-state"
+    },
+    {
+      "icon": {
+        "src": "/img/logos/pure-handlers.svg",
+        "width": "44",
+        "height": "17",
+        "finalWidth": "9.3rem"
+      },
+      "descr": "Уничтожить все обработчики за один раз",
+      "siteName": "github.com",
+      "link": "https://github.com/ilvetrov/pure-handlers"
+    },
+    {
+      "icon": {
+        "src": "/img/logos/react-ignore-render.svg",
+        "width": "56",
+        "height": "22",
+        "finalWidth": "11.2rem"
+      },
+      "descr": "Компонент для игнорирования рендеров",
+      "siteName": "github.com",
+      "link": "https://github.com/ilvetrov/react-ignore-render"
+    },
+    {
+      "icon": {
+        "src": "/img/logos/use-effect-without-mount.svg",
+        "width": "61",
+        "height": "50",
+        "finalWidth": "9rem"
+      },
+      "descr": "useEffect без запуска на маунте. Совместим с React 18",
+      "siteName": "github.com",
+      "link": "https://github.com/ilvetrov/use-effect-without-mount"
+    },
+    {
+      "icon": {
+        "src": "/img/logos/find-and-set-ref.svg",
+        "width": "33",
+        "height": "21",
+        "finalWidth": "7rem"
+      },
+      "descr": "Найти элемент среди потомков и поставить ему реф",
+      "siteName": "github.com",
+      "link": "https://github.com/ilvetrov/find-and-set-ref"
+    },
+    {
+      "icon": {
+        "src": "/img/logos/child-ref.svg",
+        "width": "40",
+        "height": "18",
+        "finalWidth": "7.5rem"
+      },
+      "descr": "Хук для доступа к рефу потомка <br> через children props",
+      "siteName": "github.com",
+      "link": "https://github.com/ilvetrov/use-child-ref"
+    }
   ]
 }

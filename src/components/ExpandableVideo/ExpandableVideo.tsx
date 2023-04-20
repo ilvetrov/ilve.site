@@ -23,6 +23,7 @@ interface ExpandedCoordsOfVideo {
   leftOffset: number
   topOffset: number
   maxHeight: number
+  borderRadius: number
 }
 
 function expandedCoordsOfVideo(
@@ -61,6 +62,7 @@ function expandedCoordsOfVideo(
     leftOffset: roundTo(expandedLeftOffset, 2),
     topOffset: roundTo(expandedTopOffset, 2),
     maxHeight: roundTo(hiddenHeight, 2),
+    borderRadius: roundTo(0.38 / expandedScale, 2),
   }
 }
 
@@ -69,6 +71,7 @@ const defaultCoords: ExpandedCoordsOfVideo = {
   leftOffset: 0,
   topOffset: 0,
   maxHeight: 0,
+  borderRadius: 0.38,
 }
 
 function ExpandableVideo(props: {
@@ -89,13 +92,15 @@ function ExpandableVideo(props: {
 
   useBlockScroll(videoIsRunning)
 
-  const [{ scale, leftOffset, topOffset, maxHeight }, updateCoords] =
-    useMemoPlusState(() => {
-      if (!video.current || !videoOnPage.current || !videoIsRunning)
-        return defaultCoords
+  const [
+    { scale, leftOffset, topOffset, maxHeight, borderRadius },
+    updateCoords,
+  ] = useMemoPlusState(() => {
+    if (!video.current || !videoOnPage.current || !videoIsRunning)
+      return defaultCoords
 
-      return expandedCoordsOfVideo(video.current, videoOnPage.current)
-    }, [videoIsRunning])
+    return expandedCoordsOfVideo(video.current, videoOnPage.current)
+  }, [videoIsRunning])
 
   useEffect(() => {
     if (!videoIsRunning) return undefined
@@ -140,6 +145,7 @@ function ExpandableVideo(props: {
             '--offset-left': `${leftOffset}px`,
             '--offset-top': `${topOffset}px`,
             '--max-height': `${maxHeight}px`,
+            '--border-radius': `${borderRadius}rem`,
           } as CSSProperties
         }
       >

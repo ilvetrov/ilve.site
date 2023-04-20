@@ -1,0 +1,17 @@
+.projects {
+  margin-top: rem(48px);
+  margin-bottom: rem(48px);
+}
+
+.list {
+  margin-top: rem(-24px);
+  margin-bottom: rem(-24px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.item {
+  padding-top: rem(24px);
+  padding-bottom: rem(24px);
+}

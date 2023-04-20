@@ -31,7 +31,7 @@
   &_active {
     transform: scale(var(--scale, 1)) translateX(var(--offset-left, 0px))
       translateY(var(--offset-top, 0px));
-    border-radius: $border-radius-6;
+    border-radius: var(--border-radius, $border-radius-6);
     max-height: var(--max-height, 100vh);
   }
 }

@@ -3,7 +3,7 @@
 
   "ilia_vetrov": "Ilia Vetrov",
   "site_title": "Ilia Vetrov - React Front-End Developer",
-  "site_descr": "Making the Front-End better. Projects, contacts and videos.",
+  "site_descr": "Making the Front-End better. Projects, contacts and videos",
   "home_title": "Making the<br>Front-End better",
   "enable_audio": "Enable audio",
   "home_video": [
@@ -44,6 +44,119 @@
       "href": "https://vk.com/ilvetrov",
       "linkText": "vk.com/ilvetrov",
       "qrHref": "/img/qr/vk.svg"
+    }
+  ],
+  "projects": [
+    {
+      "icon": {
+        "src": "/img/logos/laziest-image.svg",
+        "width": "112",
+        "height": "96",
+        "finalWidth": "7rem"
+      },
+      "descr": "Full control over image loading in JS",
+      "siteName": "github.com",
+      "link": "https://github.com/ilvetrov/laziest-image",
+      "video": [
+        {
+          "src": "/video/home-video-ru.mp4",
+          "type": "video/mp4"
+        },
+        {
+          "src": "/video/home-video-ru.webm",
+          "type": "video/webm"
+        }
+      ],
+      "videoHint": "About project (Russian)"
+    },
+    {
+      "icon": {
+        "src": "/img/logos/youtube.svg",
+        "width": "36",
+        "height": "28",
+        "finalWidth": "3.1rem"
+      },
+      "name": "The Division <br> of Responsibility in CSS",
+      "descr": "Write CSS without side-effects <br> (video in Russian)",
+      "siteName": "youtube.com",
+      "link": "https://youtu.be/XekZ8Hjx3o4"
+    },
+    {
+      "icon": {
+        "src": "/img/logos/reactive-ref.svg",
+        "width": "59",
+        "height": "13",
+        "finalWidth": "12rem"
+      },
+      "descr": "Reactive work with refs in React",
+      "siteName": "github.com",
+      "link": "https://github.com/ilvetrov/reactive-ref"
+    },
+    {
+      "icon": {
+        "src": "/img/logos/local-sync-state.svg",
+        "width": "42",
+        "height": "44",
+        "finalWidth": "7rem"
+      },
+      "descr": "Synchronous state in one object",
+      "siteName": "github.com",
+      "link": "https://github.com/ilvetrov/local-sync-state"
+    },
+    {
+      "icon": {
+        "src": "/img/logos/pure-handlers.svg",
+        "width": "44",
+        "height": "17",
+        "finalWidth": "9.3rem"
+      },
+      "descr": "Destroy all your handlers at once",
+      "siteName": "github.com",
+      "link": "https://github.com/ilvetrov/pure-handlers"
+    },
+    {
+      "icon": {
+        "src": "/img/logos/react-ignore-render.svg",
+        "width": "56",
+        "height": "22",
+        "finalWidth": "11.2rem"
+      },
+      "descr": "Component to ignore <br> component tree rendering",
+      "siteName": "github.com",
+      "link": "https://github.com/ilvetrov/react-ignore-render"
+    },
+    {
+      "icon": {
+        "src": "/img/logos/use-effect-without-mount.svg",
+        "width": "61",
+        "height": "50",
+        "finalWidth": "9rem"
+      },
+      "descr": "useEffect without running on mount. Compatible with React 18",
+      "siteName": "github.com",
+      "link": "https://github.com/ilvetrov/use-effect-without-mount"
+    },
+    {
+      "icon": {
+        "src": "/img/logos/find-and-set-ref.svg",
+        "width": "33",
+        "height": "21",
+        "finalWidth": "7rem"
+      },
+      "descr": "Find an element among React's <br> children and set a ref to it",
+      "siteName": "github.com",
+      "link": "https://github.com/ilvetrov/find-and-set-ref"
+    },
+    {
+      "icon": {
+        "src": "/img/logos/child-ref.svg",
+        "width": "40",
+        "height": "18",
+        "finalWidth": "7.5rem"
+      },
+      "descr": "Hook to access the ref <br> of the component from children prop",
+      "siteName": "github.com",
+      "link": "https://github.com/ilvetrov/use-child-ref"
     }
   ]
 }
