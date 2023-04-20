@@ -63,21 +63,24 @@ export default function Home() {
             <div className={styles.buttons__button}>
               <Link href="/projects">
                 <BigButton
-                  title="Projects"
-                  text="To make Front-End better"
+                  title={dict.projects}
+                  text={dict.projects_descr}
                 ></BigButton>
               </Link>
             </div>
             <div className={styles.buttons__button}>
               <Link href="/contacts" scroll={false} shallow>
-                <BigButton title="Contacts" text="Let's cooperate"></BigButton>
+                <BigButton
+                  title={dict.contacts}
+                  text={dict.letsCooperate}
+                ></BigButton>
               </Link>
             </div>
             <ModalBase isActive={hasContacts} close={goToHome}>
               {(modal) => (
                 <Center isActive={modal.visible} close={modal.close}>
-                  <BottomMenu title="Contacts">
-                    <Contacts list={dict.contacts}></Contacts>
+                  <BottomMenu title={dict.contacts}>
+                    <Contacts list={dict.contacts_list}></Contacts>
                   </BottomMenu>
                 </Center>
               )}

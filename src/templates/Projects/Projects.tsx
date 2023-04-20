@@ -9,7 +9,7 @@ export default function Projects() {
   return (
     <div className={clsx(styles.projects, 'container')}>
       <div className={styles.list}>
-        {dict.projects.map((project) => (
+        {dict.projects_list.map((project) => (
           <div key={project.link} className={styles.item}>
             <Project project={project}></Project>
           </div>

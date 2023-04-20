@@ -6,6 +6,10 @@
   "site_descr": "Making the Front-End better. Projects, contacts and videos",
   "home_title": "Making the<br>Front-End better",
   "enable_audio": "Enable audio",
+  "contacts": "Contacts",
+  "letsCooperate": "Let's cooperate",
+  "projects": "Projects",
+  "projects_descr": "Libraries, principles, etc.",
   "home_video": [
     {
       "src": "/video/home-video-en.webm",
@@ -16,7 +20,7 @@
       "type": "video/mp4"
     }
   ],
-  "contacts": [
+  "contacts_list": [
     {
       "iconHref": "/img/icons/email.svg",
       "name": "Email",
@@ -46,7 +50,7 @@
       "qrHref": "/img/qr/vk.svg"
     }
   ],
-  "projects": [
+  "projects_list": [
     {
       "icon": {
         "src": "/img/logos/laziest-image.svg",

@@ -4,8 +4,12 @@
   "ilia_vetrov": "Илья Ветров",
   "site_title": "Илья Ветров - React Front-End Разработчик",
   "site_descr": "Делая Front-End лучше. Проекты, контакты и видео.",
-  "home_title": "Делая весь<br>Front-End лучше",
+  "home_title": "Сделаем<br>Front-End лучше",
   "enable_audio": "Включить звук",
+  "contacts": "Контакты",
+  "letsCooperate": "Давай сотрудничать",
+  "projects": "Проекты",
+  "projects_descr": "Библиотеки, принципы и т.д.",
   "home_video": [
     {
       "src": "/video/home-video-ru.webm",
@@ -16,7 +20,7 @@
       "type": "video/mp4"
     }
   ],
-  "contacts": [
+  "contacts_list": [
     {
       "iconHref": "/img/icons/email.svg",
       "name": "Email",
@@ -46,7 +50,7 @@
       "qrHref": "/img/qr/vk.svg"
     }
   ],
-  "projects": [
+  "projects_list": [
     {
       "icon": {
         "src": "/img/logos/laziest-image.svg",
@@ -77,7 +81,7 @@
         "finalWidth": "3.1rem"
       },
       "name": "Принцип Разделения ответственности в CSS",
-      "descr": "Как писать CSS без сайд-эффектов",
+      "descr": "Как писать CSS без сайд-эффектов. Выступление на IT-Митапе",
       "siteName": "youtube.com",
       "link": "https://youtu.be/XekZ8Hjx3o4"
     },
