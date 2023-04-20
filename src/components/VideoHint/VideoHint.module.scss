@@ -1,0 +1,20 @@
+.videoHint {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+
+  &__text {
+    min-width: rem(80px);
+    text-align: center;
+    font-size: rem(12px);
+    color: var(--font-color-link);
+    line-height: 1.44;
+  }
+  &__arrow {
+    margin-top: rem(6.5px);
+    margin-right: rem(16px);
+    width: rem(11px);
+    height: rem(19px);
+  }
+}
