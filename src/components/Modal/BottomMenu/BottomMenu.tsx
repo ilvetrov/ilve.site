@@ -8,7 +8,7 @@ export default function BottomMenu(props: {
 }) {
   return (
     <div className={styles.bottomMenu}>
-      <div className={styles.content}>
+      <div className={clsx(styles.content, 'custom-scrollbar-level-2')}>
         {props.title && (
           <div className={clsx(styles.content__title, styles.title)}>
             {props.title}
