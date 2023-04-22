@@ -1,5 +1,5 @@
 import Projects from '~/templates/Projects/Projects'
 
-export default function HomePage() {
+export default function ProjectsPage() {
   return <Projects></Projects>
 }

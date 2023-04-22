@@ -4,8 +4,7 @@
   background-color: var(--background-level-1);
   border-radius: $border-radius-6;
   color: var(--font-color-link);
-  transition: background-color 0.3s,
-    color $transition-time-animated-color-change;
+  transition: background-color 0.3s;
   padding-top: rem(32px);
   padding-bottom: rem(32px);
   padding-left: rem(22px);

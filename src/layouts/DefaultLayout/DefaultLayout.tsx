@@ -4,9 +4,9 @@ import Header from '~/components/Header/Header'
 import { ILayout } from '~/interfaces/App.interface'
 import styles from './DefaultLayout.module.scss'
 
-const vars: string[] = ['--font-color-default-animated', '--font-color-link']
+const vars: string[] = ['--font-color-default-animated']
 const colors: string[] = ['#fed105']
-const colorsTimeouts = [5000, 2000]
+const colorsTimeouts = [6000, 1500]
 
 const DefaultLayout: ILayout = ({ children }: { children: ReactNode }) => {
   return (
