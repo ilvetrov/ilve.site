@@ -51,3 +51,8 @@
     );
   }
 }
+
+@mixin no-space-after-child-image() {
+  display: flex;
+  flex-direction: column;
+}

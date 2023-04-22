@@ -60,7 +60,7 @@
 }
 
 .icon {
-  display: flex;
+  @include no-space-after-child-image();
 
   &__img {
     width: var(--width, rem(100px));

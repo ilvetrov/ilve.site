@@ -16,7 +16,7 @@ export default function Logo() {
   const { lang, defaultLang } = useLang()
 
   return (
-    <HiddenRenders name={lang}>
+    <HiddenRenders name={lang} renderClassName={styles.wrapper}>
       <Icon variant={lang} defaultVariant={defaultLang}></Icon>
     </HiddenRenders>
   )

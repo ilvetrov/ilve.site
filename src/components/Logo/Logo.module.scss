@@ -1,5 +1,5 @@
 .logo {
-  display: flex;
+  @include no-space-after-child-image();
   height: rem(23px);
   width: auto;
 
@@ -7,4 +7,8 @@
     fill: var(--font-color-default-animated);
     transition: fill $transition-time-animated-color-change;
   }
+}
+
+.wrapper {
+  @include no-space-after-child-image();
 }

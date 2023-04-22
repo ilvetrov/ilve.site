@@ -147,7 +147,7 @@
         "height": "21",
         "finalWidth": "7rem"
       },
-      "descr": "Find an element among React's <br> children and set a ref to it",
+      "descr": "Find an element among <br> children of React and set a ref to it",
       "siteName": "github.com",
       "link": "https://github.com/ilvetrov/find-and-set-ref"
     },
