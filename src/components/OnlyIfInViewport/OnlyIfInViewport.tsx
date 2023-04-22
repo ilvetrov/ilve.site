@@ -14,19 +14,21 @@ export default function OnlyInViewport({
   watchRef,
   yOffset,
   xOffset,
+  keep,
   ...elementProps
 }: {
   watchRef?: MutableRefObject<Element | null | undefined>
   children: ReactNode
   yOffset?: Offset
   xOffset?: Offset
+  keep?: boolean
 } & Omit<HTMLAttributes<HTMLDivElement>, 'children'>) {
   const ownElement = useRef<HTMLDivElement>(null)
   const isShowing = useOnlyIfInViewport(
     watchRef ?? ownElement,
     yOffset,
     xOffset,
-    true,
+    keep,
   )
 
   const WrapElement = watchRef ? Fragment : 'div'

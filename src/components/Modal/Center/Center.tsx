@@ -8,7 +8,7 @@ import styles from './Center.module.scss'
 export default function Center(props: {
   isActive: boolean
   close: () => void
-  children: ReactNode
+  children?: ReactNode
 }) {
   const ref = useRef<HTMLDivElement>(null)
 

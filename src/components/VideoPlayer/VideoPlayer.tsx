@@ -83,28 +83,43 @@ const VideoPlayer = forwardRef<
     useEffect(() => {
       if (isActive) {
         activateNow()
-      } else {
-        deactivateNow()
+
+        return undefined
       }
+
+      deactivateNow()
+
+      const abortController = new AbortController()
+
+      video.current?.addEventListener(
+        'timeupdate',
+        () => {
+          assertsNonNullable(video.current)
+
+          if (video.current.currentTime > 5) {
+            video.current.currentTime = 0
+          }
+        },
+        { signal: abortController.signal },
+      )
+
+      return () => abortController.abort()
     }, [isActive])
 
     useOnHold(
       video,
-      useMemo(
-        () => ({
-          onStart() {
-            if (video.current && isActive) {
-              pauseVideoNow()
-            }
-          },
-          onEnd() {
-            if (video.current && isActive) {
-              playVideoNow()
-            }
-          },
-        }),
-        [isActive],
-      ),
+      {
+        onStart() {
+          if (video.current && isActive) {
+            pauseVideoNow()
+          }
+        },
+        onEnd() {
+          if (video.current && isActive) {
+            playVideoNow()
+          }
+        },
+      },
       [src],
     )
 
@@ -133,6 +148,7 @@ const VideoPlayer = forwardRef<
         muted={!isActive}
         loop={!isActive}
         {...elementProps}
+        controls={elementProps.controls && isActive}
         onClick={(event) => {
           onClick()
           elementProps.onClick?.(event)

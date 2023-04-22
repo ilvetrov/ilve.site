@@ -11,10 +11,15 @@ import useParentState from '~/hooks/useParentState'
 import AfterPageLoad from '../AfterPageLoad/AfterPageLoad'
 import ExpandableVideo from '../ExpandableVideo/ExpandableVideo'
 import FlashingImage from '../FlashingImage/FlashingImage'
+import Center from '../Modal/Center/Center'
 import ModalBase from '../Modal/ModalBase'
 import OnlyIfInViewport from '../OnlyIfInViewport/OnlyIfInViewport'
 import { IVideoSrc } from '../VideoPlayer/VideoPlayer'
 import styles from './VideoTip.module.scss'
+
+const expandableVideoCoords = {
+  margin: { bottom: 66 },
+}
 
 function VideoTip(props: {
   src: IVideoSrc[]
@@ -57,16 +62,24 @@ function VideoTip(props: {
         )}
       >
         <AfterPageLoad>
-          <OnlyIfInViewport watchRef={ref} yOffset="100%">
+          <OnlyIfInViewport watchRef={ref} yOffset="50%" keep>
             <ModalBase
               isActive={isActive}
               close={useCallback(() => setIsActive(false), [])}
-            ></ModalBase>
+            >
+              {({ visible }) => (
+                <Center
+                  isActive={visible}
+                  close={() => setIsActive(false)}
+                ></Center>
+              )}
+            </ModalBase>
             <div className={styles.video}>
               <ExpandableVideo
                 src={props.src}
                 isActive={isActive}
                 setIsActive={setIsActive}
+                coordsProps={expandableVideoCoords}
               ></ExpandableVideo>
             </div>
           </OnlyIfInViewport>

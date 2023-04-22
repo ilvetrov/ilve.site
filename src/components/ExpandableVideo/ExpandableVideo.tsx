@@ -26,23 +26,44 @@ interface ExpandedCoordsOfVideo {
   borderRadius: number
 }
 
+export interface CoordsProps {
+  respectDevicePixelRatio?: boolean
+  margin?: { top?: number; left?: number; right?: number; bottom?: number }
+}
+
 function expandedCoordsOfVideo(
   video: HTMLVideoElement,
   onPage: HTMLElement,
+  props?: CoordsProps,
 ): ExpandedCoordsOfVideo {
-  const windowWidth = Math.min(window.innerWidth, window.outerWidth)
-  const windowHeight = Math.min(window.innerHeight, window.outerHeight)
+  const margin = {
+    top: props?.margin?.top ?? 30,
+    left: props?.margin?.left ?? 30,
+    right: props?.margin?.right ?? 30,
+    bottom: props?.margin?.bottom ?? 30,
+  }
 
-  const videoRealWidth = video.videoWidth / window.devicePixelRatio
-  const videoRealHeight = video.videoHeight / window.devicePixelRatio
+  const windowWidth =
+    Math.min(window.innerWidth, window.outerWidth) -
+    Math.max(margin.left + margin.right, 0)
+  const windowHeight =
+    Math.min(window.innerHeight, window.outerHeight) -
+    Math.max(margin.top + margin.bottom, 0)
+
+  const videoRealWidth =
+    video.videoWidth /
+    (props?.respectDevicePixelRatio ? window.devicePixelRatio : 1)
+  const videoRealHeight =
+    video.videoHeight /
+    (props?.respectDevicePixelRatio ? window.devicePixelRatio : 1)
   const actualVideoWidthHeightRatio = videoRealHeight / videoRealWidth
 
   const hiddenWidth = onPage.clientWidth
   const hiddenHeight = onPage.clientHeight * actualVideoWidthHeightRatio
 
-  const maxWidth = Math.min(windowWidth * 0.9, videoRealWidth)
+  const maxWidth = Math.min(windowWidth, videoRealWidth)
   const scaleByMaxWidth = maxWidth / hiddenWidth
-  const maxHeight = Math.min(windowHeight * 0.9, videoRealHeight)
+  const maxHeight = Math.min(windowHeight, videoRealHeight)
   const scaleByMaxHeight = maxHeight / hiddenHeight
 
   const expandedScale = Math.min(scaleByMaxWidth, scaleByMaxHeight)
@@ -50,11 +71,11 @@ function expandedCoordsOfVideo(
   const onPageCoords = onPage.getBoundingClientRect()
 
   const finalWidth = expandedScale * hiddenWidth
-  const needLeftOffset = (windowWidth - finalWidth) / 2
+  const needLeftOffset = (windowWidth - finalWidth) / 2 + margin.left
   const expandedLeftOffset = (needLeftOffset - onPageCoords.x) / expandedScale
 
   const finalHeight = expandedScale * hiddenHeight
-  const needTopOffset = (windowHeight - finalHeight) / 2
+  const needTopOffset = (windowHeight - finalHeight) / 2 + margin.top
   const expandedTopOffset = (needTopOffset - onPageCoords.y) / expandedScale
 
   return {
@@ -78,6 +99,7 @@ function ExpandableVideo(props: {
   src: IVideoSrc[]
   isActive?: boolean
   setIsActive?: Dispatch<SetStateAction<boolean>>
+  coordsProps?: CoordsProps
 }) {
   const video = useRef<HTMLVideoElement>(null)
   const videoOnPage = useRef<HTMLDivElement>(null)
@@ -99,7 +121,11 @@ function ExpandableVideo(props: {
     if (!video.current || !videoOnPage.current || !videoIsRunning)
       return defaultCoords
 
-    return expandedCoordsOfVideo(video.current, videoOnPage.current)
+    return expandedCoordsOfVideo(
+      video.current,
+      videoOnPage.current,
+      props.coordsProps,
+    )
   }, [videoIsRunning])
 
   useEffect(() => {
