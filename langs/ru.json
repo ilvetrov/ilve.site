@@ -12,11 +12,11 @@
   "projects_descr": "Библиотеки, принципы и т.д.",
   "home_video": [
     {
-      "src": "/video/home-video-ru.webm",
+      "src": "/video/home-ru.webm",
       "type": "video/webm"
     },
     {
-      "src": "/video/home-video-ru.mp4",
+      "src": "/video/home-ru.mp4",
       "type": "video/mp4"
     }
   ],
@@ -63,11 +63,11 @@
       "link": "https://github.com/ilvetrov/laziest-image",
       "video": [
         {
-          "src": "/video/home-video-ru.mp4",
+          "src": "/video/laziest-image.mp4",
           "type": "video/mp4"
         },
         {
-          "src": "/video/home-video-ru.webm",
+          "src": "/video/laziest-image.webm",
           "type": "video/webm"
         }
       ],
@@ -105,7 +105,17 @@
       },
       "descr": "Синхронный стейт в одном объекте",
       "siteName": "github.com",
-      "link": "https://github.com/ilvetrov/local-sync-state"
+      "link": "https://github.com/ilvetrov/local-sync-state",
+      "video": [
+        {
+          "src": "/video/local-sync-state.mp4",
+          "type": "video/mp4"
+        },
+        {
+          "src": "/video/local-sync-state.webm",
+          "type": "video/webm"
+        }
+      ]
     },
     {
       "icon": {
@@ -116,7 +126,17 @@
       },
       "descr": "Уничтожить все обработчики за один раз",
       "siteName": "github.com",
-      "link": "https://github.com/ilvetrov/pure-handlers"
+      "link": "https://github.com/ilvetrov/pure-handlers",
+      "video": [
+        {
+          "src": "/video/pure-handlers.mp4",
+          "type": "video/mp4"
+        },
+        {
+          "src": "/video/pure-handlers.webm",
+          "type": "video/webm"
+        }
+      ]
     },
     {
       "icon": {

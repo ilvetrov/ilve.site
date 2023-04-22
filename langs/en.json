@@ -12,11 +12,11 @@
   "projects_descr": "Libraries, principles, etc.",
   "home_video": [
     {
-      "src": "/video/home-video-en.webm",
+      "src": "/video/home-en.webm",
       "type": "video/webm"
     },
     {
-      "src": "/video/home-video-en.mp4",
+      "src": "/video/home-en.mp4",
       "type": "video/mp4"
     }
   ],
@@ -63,11 +63,11 @@
       "link": "https://github.com/ilvetrov/laziest-image",
       "video": [
         {
-          "src": "/video/home-video-ru.mp4",
+          "src": "/video/laziest-image.mp4",
           "type": "video/mp4"
         },
         {
-          "src": "/video/home-video-ru.webm",
+          "src": "/video/laziest-image.webm",
           "type": "video/webm"
         }
       ],
@@ -105,7 +105,17 @@
       },
       "descr": "Synchronous state in one object",
       "siteName": "github.com",
-      "link": "https://github.com/ilvetrov/local-sync-state"
+      "link": "https://github.com/ilvetrov/local-sync-state",
+      "video": [
+        {
+          "src": "/video/local-sync-state.mp4",
+          "type": "video/mp4"
+        },
+        {
+          "src": "/video/local-sync-state.webm",
+          "type": "video/webm"
+        }
+      ]
     },
     {
       "icon": {
@@ -116,7 +126,17 @@
       },
       "descr": "Destroy all your handlers at once",
       "siteName": "github.com",
-      "link": "https://github.com/ilvetrov/pure-handlers"
+      "link": "https://github.com/ilvetrov/pure-handlers",
+      "video": [
+        {
+          "src": "/video/pure-handlers.mp4",
+          "type": "video/mp4"
+        },
+        {
+          "src": "/video/pure-handlers.webm",
+          "type": "video/webm"
+        }
+      ]
     },
     {
       "icon": {
