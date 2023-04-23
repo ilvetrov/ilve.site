@@ -3,7 +3,6 @@ import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import BigButton from '~/components/BigButton/BigButton'
 import EnableAudioButton from '~/components/EnableAudioButton/EnableAudioButton'
-import LazySvg from '~/components/LazySvg/LazySvgComponent'
 import BottomMenu from '~/components/Modal/BottomMenu/BottomMenu'
 import Center from '~/components/Modal/Center/Center'
 import { Contacts } from '~/components/Modal/Contacts/Contacts'
@@ -46,11 +45,16 @@ export default function Home() {
               isActive={videoIsRunning}
               setIsActive={setVideoIsRunning}
             ></VideoTip>
-            <LazySvg
-              icon={() => import('./assets/arrow.svg')}
+            <img
+              src="/arrow.svg"
+              width="11"
+              height="31"
               className={styles.video__arrow}
               onClick={() => setVideoIsRunning(true)}
-            ></LazySvg>
+              alt=""
+              loading="lazy"
+              decoding="async"
+            ></img>
           </div>
           <div className={styles.homePage__videoButton}>
             <EnableAudioButton

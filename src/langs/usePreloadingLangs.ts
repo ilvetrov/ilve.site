@@ -13,19 +13,20 @@ const timeoutAfterLoad = 2000
 
 export function usePreloadingLangs(lang: ILang) {
   useEffect(
-    () =>
-      afterPageLoad(() => {
-        const abortController = new AbortController()
+    afterPageLoad(() => {
+      const abortController = new AbortController()
 
-        const timeoutId = setTimeout(async () => {
-          if (preloadingFinished) {
-            return
-          }
+      const timeoutId = setTimeout(async () => {
+        if (preloadingFinished) {
+          return
+        }
 
-          const langs = LangsInLocalStorage()
+        const langs = LangsInLocalStorage()
 
-          await Promise.all(
-            lang.names.map((name) =>
+        await Promise.all(
+          lang.names
+            .filter((name) => name !== lang.name)
+            .map((name) =>
               SavedLangOrFromApi(
                 name,
                 langs,
@@ -33,16 +34,16 @@ export function usePreloadingLangs(lang: ILang) {
                 abortController.signal,
               ).content(),
             ),
-          )
+        )
 
-          preloadingFinished = true
-        }, timeoutAfterLoad)
+        preloadingFinished = true
+      }, timeoutAfterLoad)
 
-        return () => {
-          clearTimeout(timeoutId)
-          abortController.abort()
-        }
-      }),
+      return () => {
+        clearTimeout(timeoutId)
+        abortController.abort()
+      }
+    }),
     [],
   )
 }

@@ -1,23 +1,21 @@
 import useLang from '~/langs/useLang'
-import lazySvg, { ImportedSvg } from '../LazySvg/lazySvg'
+import LazySvgFromSrc from '../LazySvg/LazySvgFromSrc'
 import HiddenRenders from '../PreservedRenders/HiddenRenders'
 import styles from './Descr.module.scss'
 
-const Icon = lazySvg(
-  {
-    en: () => import(`./assets/descr-en.svg`),
-    ru: () => import(`./assets/descr-ru.svg`),
-  } as Record<string, ImportedSvg>,
-  { className: styles.descr },
-  true,
-)
-
 export default function Descr() {
-  const { lang, defaultLang } = useLang()
+  const { lang, langs } = useLang()
 
   return (
     <HiddenRenders name={lang} renderClassName={styles.wrapper}>
-      <Icon variant={lang} defaultVariant={defaultLang}></Icon>
+      <LazySvgFromSrc
+        src={`/descr-${lang}.svg`}
+        preloadSrc={langs
+          .filter((oneLang) => oneLang !== lang)
+          .map((oneLang) => `/descr-${oneLang}.svg`)}
+        className={styles.descr}
+        height="19"
+      ></LazySvgFromSrc>
     </HiddenRenders>
   )
 }

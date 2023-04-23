@@ -6,7 +6,7 @@ export function isPageLoaded() {
   return !isServer && document.readyState === 'complete'
 }
 
-export function afterPageLoad(action: () => Destroyer | void): Destroyer {
+export function afterPageLoad(action: () => Destroyer | void): () => Destroyer {
   return () => {
     if (isServer) {
       return () => {}

@@ -1,5 +1,6 @@
 /* eslint-disable react/no-danger */
 import { forwardRef, SVGProps, useEffect, useState } from 'react'
+import { afterPageLoad } from '~/core/afterPageLoad'
 import { nonNullable } from '~/core/nonNullable'
 import { ObjectFromArrayByKeys } from '~/core/objectFromArray'
 import useCombinedRef from '~/hooks/useCombinedRef'
@@ -27,13 +28,13 @@ function svgContentFromString(source: string): SvgContent {
   return { ownProps, content: svgElementContent }
 }
 
-type SvgFromSrcProps = { src: string } & Omit<
+type SvgFromSrcProps = { src: string; preloadSrc?: string[] } & Omit<
   SVGProps<SVGSVGElement>,
   'src' | 'ref'
 >
 
 const LazySvgFromSrc = forwardRef<SVGSVGElement | null, SvgFromSrcProps>(
-  ({ src, ...props }, userRef) => {
+  ({ src, preloadSrc = [], ...props }, userRef) => {
     const [svgContent, setStringSvg] = useState<SvgContent>()
 
     const ref = useCombinedRef(userRef)
@@ -56,6 +57,24 @@ const LazySvgFromSrc = forwardRef<SVGSVGElement | null, SvgFromSrcProps>(
 
       return () => abortController.abort()
     }, [src, isInViewport])
+
+    useEffect(() => {
+      if (!isInViewport || !preloadSrc.length) return undefined
+
+      const abortController = new AbortController()
+
+      const destroyAfterPageLoad = afterPageLoad(() => {
+        preloadSrc.forEach((preloadSrcOne) =>
+          fetch(preloadSrcOne, { signal: abortController.signal }).catch(
+            () => {},
+          ),
+        )
+      })()
+
+      abortController.signal.addEventListener('abort', destroyAfterPageLoad)
+
+      return () => abortController.abort()
+    }, [isInViewport, ...preloadSrc])
 
     return (
       <svg
