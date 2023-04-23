@@ -38,7 +38,7 @@ const LazySvgFromSrc = forwardRef<SVGSVGElement | null, SvgFromSrcProps>(
 
     const ref = useCombinedRef(userRef)
 
-    const isInViewport = useOnlyIfInViewport(ref)
+    const isInViewport = useOnlyIfInViewport(ref, undefined, undefined, true)
 
     useEffect(() => {
       if (!isInViewport) return undefined
