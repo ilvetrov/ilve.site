@@ -50,28 +50,6 @@ const nextConfig = {
       },
     ]
   },
-  headers: async () => [
-    {
-      source: '/:all*(svg|jpg|png|ico|webm|mp4)',
-      locale: false,
-      headers: [
-        {
-          key: 'Cache-Control',
-          value: 'public, max-age=604800, stale-while-revalidate',
-        },
-      ],
-    },
-    {
-      source: '/:all*(eot|ttf|woff|woff2)',
-      locale: false,
-      headers: [
-        {
-          key: 'Cache-Control',
-          value: 'public, max-age=31536000, stale-while-revalidate',
-        },
-      ],
-    },
-  ],
 }
 
 module.exports = nextConfig
