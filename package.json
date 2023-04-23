@@ -6,6 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "start:background": "pm2 start \"npm run start\" --name \"ilve.site\" && pm2 save",
+    "stop:background": "pm2 stop \"ilve.site\"",
+    "delete:background": "pm2 delete \"ilve.site\" && pm2 save --force",
     "lint": "next lint",
     "lint-fix": "next lint --fix",
     "init-langs": "[ ! -d ./langs ] && mkdir ./langs; [ ! -f ./langs/en.json ] && echo {} > ./langs/en.json;"
@@ -30,6 +33,7 @@
     "eslint-plugin-react": "^7.28.0",
     "eslint-plugin-react-hooks": "^4.3.0",
     "next": "13.2.4",
+    "pm2": "^5.3.0",
     "prettier": "^2.8.7",
     "react": "18.2.0",
     "react-dom": "18.2.0",
