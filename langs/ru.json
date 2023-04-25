@@ -80,7 +80,7 @@
         "height": "28",
         "finalWidth": "3.1rem"
       },
-      "name": "Принцип Разделения ответственности в CSS",
+      "name": "Принцип Единой Ответственности в CSS",
       "descr": "Как писать CSS без сайд-эффектов. Выступление на IT-Митапе",
       "siteName": "youtube.com",
       "link": "https://youtu.be/XekZ8Hjx3o4"

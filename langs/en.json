@@ -80,7 +80,7 @@
         "height": "28",
         "finalWidth": "3.1rem"
       },
-      "name": "The Division <br> of Responsibility in CSS",
+      "name": "Single Responsibility <br> Principle in CSS",
       "descr": "Write CSS without side-effects <br> (video in Russian)",
       "siteName": "youtube.com",
       "link": "https://youtu.be/XekZ8Hjx3o4"
