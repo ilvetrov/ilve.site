@@ -43,6 +43,13 @@
       "qrHref": "/img/qr/telegram.svg"
     },
     {
+      "iconHref": "/img/icons/linkedin.svg",
+      "name": "LinkedIn",
+      "href": "https://linkedin.com/in/ilia-vetrov-5aa6b0249/",
+      "linkText": "ilia-vetrov",
+      "qrHref": "/img/qr/linkedin.svg"
+    },
+    {
       "iconHref": "/img/icons/vk.svg",
       "name": "VK.com",
       "href": "https://vk.com/ilvetrov",
